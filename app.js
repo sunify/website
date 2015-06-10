@@ -47,7 +47,7 @@ function draw(dots, ctx, time) {
 		const { va, vb } = diagram.edges[i];
 		ctx.beginPath();
 		ctx.lineWidth = 1;
-		ctx.strokeStyle = `rgba(255,${round(3.5 / dst(va, vb) * 255)},0, ${3.5 / dst(va, vb)})`;
+		ctx.strokeStyle = `rgba(50,${round(3.5 / dst(va, vb) * 255)},255, ${3.5 / dst(va, vb)})`;
 		ctx.moveTo(va.x, va.y);
 		ctx.lineTo(vb.x, vb.y);
 		ctx.stroke();
@@ -103,8 +103,15 @@ raf(loop);
 
 window.new_dots = [];
 
+let allowDraw = false;
+document.addEventListener('mousedown', (evt) => {
+	allowDraw = true;
+});
+document.addEventListener('mouseup', (evt) => {
+	allowDraw = false;
+});
 document.addEventListener('mousemove', (evt) => {
-	if(evt.metaKey) {
+	if(allowDraw) {
 		const d = dot(
 			evt.pageX / window.innerWidth * 1000,
 			evt.pageY / window.innerHeight * 700
@@ -118,6 +125,12 @@ window.addEventListener('resize', () => {
 	canvas.width = window.innerWidth + 2;
 	canvas.height = window.innerHeight + 2;
 });
+
+document.getElementById('clear').addEventListener('click', () => {
+	dots = [];
+	ctx.fillStyle = '#1E0E33';
+	ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+})
 
 canvas.width = window.innerWidth + 2;
 canvas.height = window.innerHeight + 2;
