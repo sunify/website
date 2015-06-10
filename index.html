@@ -5,13 +5,19 @@
 	<title>Document</title>
 	<link href='http://fonts.googleapis.com/css?family=Cousine:400,700' rel='stylesheet' type='text/css'>
 	<style>
+		html{
+			height: 100%;
+		}
 		body {
+			position: relative;
+			overflow: hidden;
+			height: 100%;
 			font-family: 'Cousine';
 		}
 
 		footer {
 			position: absolute;
-			z-index: 1;
+			z-index: 10;
 			left: 0;
 			right: 0;
 			text-align: center;
@@ -33,22 +39,22 @@
 	</style>
 </head>
 <body style="margin: 0;">
-	<div style="position: absolute;z-index: 1;color: #FFF; left: 15%; top: 150px;right: 15%;text-align: center;">
+	<!-- <div style="position: absolute;z-index: 1;color: #FFF; left: 15%; top: 150px;right: 15%;text-align: center;">
 		<h1 style="font-size: 60px !important;letter-spacing: 2px;margin-bottom: 10px;line-height: 1;">
 			Alexander<br />
 			Lunyov
 		</h1>
 		<p style="font-size: 20px; margin-top: 20px;">Frontend developer<br /> at SmartProgress.do</p>
 		<p style="font-size: 14px; margin-top: -5px;">React&nbsp; &bull; &nbsp;JS&nbsp; &bull; &nbsp;CSS&nbsp; &bull; &nbsp;HTML</p>
-	</div>
+	</div> -->
 
-	<footer>
+	<!-- <footer>
 		<a href="#">Github</a>
 		<a href="#">@pomidore</a>
 		<a href="#">isuntc@gmail.com</a>
-	</footer>
+	</footer> -->
 
-	<canvas id="cnv" width="1000" height="700" style="position: absolute;top: 0;left: 0;background-color: #200F36; display: block;"></canvas>
+	<canvas id="cnv" width="1000" height="700" style="position: absolute;top: -1px;left: -1px;background-color: #200F36; display: block;"></canvas>
 	<script src="app.js"></script>
 </body>
 </html>
