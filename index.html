@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href='http://fonts.googleapis.com/css?family=Cousine:400,700' rel='stylesheet' type='text/css'>
+	<style>
+		body {
+			font-family: 'Cousine';
+		}
+
+		footer {
+			position: absolute;
+			z-index: 1;
+			left: 0;
+			right: 0;
+			text-align: center;
+			bottom: 30px;
+		}
+
+		footer a {
+			opacity: 0.6;
+			color: #FFF;
+		}
+
+		footer a:hover {
+			opacity: 0.9;
+		}
+
+		footer a + a {
+			margin-left: 40px;
+		}
+	</style>
+</head>
+<body style="margin: 0;">
+	<div style="position: absolute;z-index: 1;color: #FFF; left: 15%; top: 150px;right: 15%;text-align: center;">
+		<h1 style="font-size: 60px !important;letter-spacing: 2px;margin-bottom: 10px;line-height: 1;">
+			Alexander<br />
+			Lunyov
+		</h1>
+		<p style="font-size: 20px; margin-top: 20px;">Frontend developer<br /> at SmartProgress.do</p>
+		<p style="font-size: 14px; margin-top: -5px;">React&nbsp; &bull; &nbsp;JS&nbsp; &bull; &nbsp;CSS&nbsp; &bull; &nbsp;HTML</p>
+	</div>
+
+	<footer>
+		<a href="#">Github</a>
+		<a href="#">@pomidore</a>
+		<a href="#">isuntc@gmail.com</a>
+	</footer>
+
+	<canvas id="cnv" width="1000" height="700" style="position: absolute;top: 0;left: 0;background-color: #200F36; display: block;"></canvas>
+	<script src="app.js"></script>
+</body>
+</html>
