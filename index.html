@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Alexander Lunyov</title>
 	<link href='http://fonts.googleapis.com/css?family=Cousine:400,700' rel='stylesheet' type='text/css'>
 	<style>
 		html{
@@ -16,7 +16,7 @@
 		}
 
 		header {
-			pointer-events: none;
+			/*pointer-events: none;*/
 			position: absolute;
 			z-index: 1;
 			color: #FFF;
@@ -27,7 +27,7 @@
 		}
 
 		footer {
-			pointer-events: none;
+			/*pointer-events: none;*/
 			position: absolute;
 			z-index: 10;
 			left: 0;
@@ -37,12 +37,12 @@
 		}
 
 		footer a {
-			opacity: 0.6;
+			/*opacity: 0.6;*/
 			color: #FFF;
 		}
 
 		footer a:hover {
-			opacity: 0.9;
+			/*opacity: 0.9;*/
 		}
 
 		footer a + a {
@@ -52,13 +52,44 @@
 		#clear {
 			position: absolute;
 			z-index: 10;
-			top: 0;
-			right: 0;
+			top: 10px;
+			right: 10px;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			
+			opacity: 0.4;
+			cursor: pointer;
+			outline-style: none;
+			
+			border: none;
+			border-radius: 4px;
+			padding: 5px 10px;
+			
+			color: #FFF;
+			background-color: rgba(255,255,255,0.3);
+		}
+
+		#clear:hover {
+			opacity: 1;
+		}
+
+		.instruct {
+			font-size: 12px;
+			
+			position: absolute;
+			z-index: 1;
+			top: 10px;
+			left: 10px;
+			
+			opacity: 0.4;
+			
+			color: #FFF;
 		}
 	</style>
 </head>
 <body style="margin: 0;background-color: #200F36;">
 	<button id="clear">Clear</button>
+	<div class="instruct">Click and drag for drawing</div>
 	<header>
 		<h1 style="font-size: 60px !important;letter-spacing: 2px;margin-bottom: 10px;line-height: 1;">
 			Alexander<br />
@@ -69,9 +100,9 @@
 	</header>
 
 	<footer>
-		<a href="#">Github</a>
-		<a href="#">@pomidore</a>
-		<a href="#">isuntc@gmail.com</a>
+		<a target="_blank" href="https://github.com/Sunify">Github</a>
+		<a target="_blank" href="https://twitter.com/pomidore">@pomidore</a>
+		<a href="mailto:isuntc@gmail.com">isuntc@gmail.com</a>
 	</footer>
 
 	<canvas id="cnv" width="1000" height="700" style="position: absolute;top: -1px;left: -1px;background-color: #200F36; display: block;"></canvas>

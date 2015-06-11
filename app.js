@@ -1,14 +1,15 @@
 import 'babel/polyfill';
 import { run, addDot, clear } from './core';
 import dot from './dot';
-import preset from './presets/neuro';
+import presets from './presets/index';
 
 const { sin, cos, round, random, min, PI } = Math;
 
 let canvas = document.getElementById('cnv');
 let ctx = canvas.getContext('2d');
 
-run(ctx, preset);
+// run(ctx, Object.values(presets)[5]);
+run(ctx, Object.values(presets)[round(random() * 7)]);
 
 
 
