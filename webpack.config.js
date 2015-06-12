@@ -4,11 +4,7 @@ var production = process.env.NODE_ENV === 'production';
 
 module.exports = {
 	devtool: production ? '#source-map' : '#eval',
-	entry: production ? ['./src/app.js'] : [
-		'webpack-dev-server/client?http://localhost:3000',
-		'webpack/hot/only-dev-server',
-		'./src/app.js'
-	],
+	entry: ['./src/app.js'],
 	output: {
 		path: path.join(__dirname, 'build'),
 		filename: 'app.js',

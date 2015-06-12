@@ -35,11 +35,15 @@ body.st-dragging .contacts {
 .card {
 	position: absolute;
 	z-index: 1;
-	color: #FFF;
 	left: 15%;
-	top: 150px;
+	top: 40%;
 	right: 15%;
+	
 	text-align: center;
+	
+	color: #FFF;
+	
+	transform: translateY(-50%);
 }
 
 .card__name {
