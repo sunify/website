@@ -33,9 +33,21 @@ document.documentElement.style.setProperty('--primary', colors.primary);
 document.documentElement.style.setProperty('--primary-fade', `${colors.primary}55`);
 document.documentElement.style.setProperty('--secondary', lerp(colors.secondary, '#FFF', 0.6));
 
+const content = document.querySelector('.content');
+const overlay = document.querySelector('.projects-overlay');
 document.addEventListener('click', (e) => {
   if (e.target.classList && e.target.classList.contains('projects-toggle')) {
     document.body.classList.toggle('st-show-projects');
+
+    if (document.body.classList.contains('st-show-projects')) {
+      overlay.setAttribute('tabindex', '0');
+      content.setAttribute('tabindex', '-1');
+      overlay.focus();
+    } else {
+      overlay.setAttribute('tabindex', '-1');
+      content.setAttribute('tabindex', '0');
+      content.focus();
+    }
   }
 });
 
