@@ -6,10 +6,17 @@
 a {
   color: #ffffff;
   /* color: var(--primary); */
+  text-decoration: none;
+  background-image: linear-gradient(to left, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) 50%, var(--primary) 50%);
+  background-size: 200% 1px;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  transition: color 0.2s, background 0.2s;
 }
 
 a:hover {
   color: var(--primary);
+  background-position: 0 100%;
 }
 
 html {
@@ -52,12 +59,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: opacity 0.3s;
 }
 
 .caption {
   font-size: 14px;
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   right: 15px;
   bottom: 15px;
 }
@@ -70,7 +78,7 @@ header {
   margin-left: -10px;
 }
 
-h1 {
+h1, h2 {
   font-weight: 200;
   font-size: 70px;
 
@@ -100,7 +108,93 @@ footer a .icon {
   display: none;
 }
 
+.projects-toggle {
+  all: initial;
+  -webkit-appearance: none;
+  appearance: none;
+  font: inherit;
+  position: absolute;
+  right: 10vw;
+  top: 120px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  color: inherit;
+  border-radius: 4px;
+  border: 1px solid;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.projects-toggle:hover {
+  /* border-color: var(--primary); */
+  color: var(--primary);
+}
+
+.projects-overlay {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 100%;
+  /* display: none; */
+
+  opacity: 0;
+
+  padding: 100px 10vw 60px;
+
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: opacity 0.3s, left 0s 0.3s;
+  overflow-y: auto;
+}
+
+.projects-overlay ul {
+  list-style: none;
+}
+
+.projects-overlay ul li + li {
+  margin-top: 20px;
+}
+
+.projects-overlay h3 {
+  font-weight: 200;
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.projects-overlay h3 a {
+
+}
+
+.projects-overlay h3 a:hover {
+
+}
+
+.st-show-projects .content {
+  opacity: 0;
+}
+
+.st-show-projects .projects-overlay {
+  /* display: block; */
+  opacity: 1;
+  left: 0;
+  transition: opacity 0.3s;
+}
+
 @media screen and (max-width: 570px) {
+  .projects-toggle {
+    font-size: 13px;
+    right: 50%;
+    transform: translate(50%, 0);
+    top: 30px;
+  }
+
   footer {
     font-size: 14px;
   }
@@ -108,16 +202,21 @@ footer a .icon {
   .content {
     padding-left: 5vw;
     padding-right: 5vw;
-    padding-top: 50px;
+    padding-top: 80px;
     padding-bottom: 20px;
     width: 100%;
     max-width: none;
     padding-right: 0;
   }
 
-  h1 {
+  h1, h2 {
     font-size: 30px;
     font-weight: 300;
+    text-align: center;
+  }
+
+  h3 {
+    font-weight: 300 !important;
   }
 
   header {
@@ -129,6 +228,7 @@ footer a .icon {
 
   .caption {
     font-size: 12px;
+    z-index: 2;
   }
 
   footer a span {

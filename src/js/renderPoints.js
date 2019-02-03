@@ -3,7 +3,7 @@ import eases from 'eases';
 import { PIXEL_RATIO, POINTS_TTL } from './constants';
 
 export const colors = {
-  primary: '#0FC',
+  primary: '#00FFCC',
   secondary: '#7800FF',
 }
 

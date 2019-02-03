@@ -30,7 +30,20 @@ caption.innerHTML = `<sup>*</sup> <a href="${curve.url}" target="_blank">${
 }</a>`;
 
 document.documentElement.style.setProperty('--primary', colors.primary);
+document.documentElement.style.setProperty('--primary-fade', `${colors.primary}55`);
 document.documentElement.style.setProperty('--secondary', lerp(colors.secondary, '#FFF', 0.6));
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList && e.target.classList.contains('projects-toggle')) {
+    document.body.classList.toggle('st-show-projects');
+  }
+});
+
+document.addEventListener('keyup', (e) => {
+  if (e.keyCode === 27) {
+    document.body.classList.remove('st-show-projects');
+  }
+});
 
 let { time = 0, dt, getPoint } = curve;
 const draw = () => {
