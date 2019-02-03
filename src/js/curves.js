@@ -29,7 +29,7 @@ const lorenzAttractor = () => {
   const a = 6,
     b = 22,
     c = 3;
-  const dt = 0.003;
+  const dt = 0.005;
   const { x, y, z } = lorenz;
   const x1 = lorenz.x + a * (-x + y) * dt;
   const y1 = lorenz.y + (b * x - y - z * x) * dt;
@@ -91,12 +91,12 @@ export default [
     title: 'Spiral',
     url: 'https://en.wikipedia.org/wiki/Spiral'
   },
-  // {
-  //   fn: lorenzAttractor,
-  //   dt: 0,
-  //   title: 'Lorenz attractor',
-  //   url: 'https://en.wikipedia.org/wiki/Lorenz_system#Lorenz_attractor'
-  // },
+  {
+    getPoint: lorenzAttractor,
+    dt: 0,
+    title: 'Lorenz attractor',
+    url: 'https://en.wikipedia.org/wiki/Lorenz_system#Lorenz_attractor'
+  },
   {
     getPoint: rose(4 / 5),
     dt: 0.01,

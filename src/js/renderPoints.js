@@ -2,13 +2,10 @@ import lerp from '@sunify/lerp-color';
 import eases from 'eases';
 import { PIXEL_RATIO, POINTS_TTL } from './constants';
 
-const colors = {
+export const colors = {
   primary: '#0FC',
   secondary: '#7800FF',
 }
-
-document.documentElement.style.setProperty('--primary', colors.primary);
-document.documentElement.style.setProperty('--hover', lerp(colors.secondary, '#FFF', 0.6));
 
 export default function renderPoints(points, ctx) {
   points.forEach(([p, t]) => {
