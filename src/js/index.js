@@ -52,7 +52,7 @@ const draw = () => {
   points = points.concat(emitPoints(track, width, height));
 };
 
-const stop = runWithFps(draw, 40);
+const stop = runWithFps(draw, 30);
 
 // Handle hot module replacement
 if (module.hot) {
