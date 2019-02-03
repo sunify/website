@@ -34,6 +34,7 @@ const draw = () => {
   renderPoints(points, ctx);
 
   time += dt;
+
   track.push(atCenter(getPoint(time, width, height)));
 
   track = track.slice(-2);
