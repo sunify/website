@@ -23,19 +23,26 @@ canvas.style.height = height + 'px';
 let track = [];
 let points = [];
 
-const curve = curves[Math.round(Math.random() * (curves.length - 1))];
+const curveIndex = Math.round(Math.random() * (curves.length - 1));
+const curve = curves[curveIndex];
 
 caption.innerHTML = `<sup>*</sup> <a href="${curve.url}" target="_blank">${
   curve.title
 }</a>`;
 
 document.documentElement.style.setProperty('--primary', colors.primary);
-document.documentElement.style.setProperty('--primary-fade', `${colors.primary}55`);
-document.documentElement.style.setProperty('--secondary', lerp(colors.secondary, '#FFF', 0.6));
+document.documentElement.style.setProperty(
+  '--primary-fade',
+  `${colors.primary}AA`
+);
+document.documentElement.style.setProperty(
+  '--secondary',
+  lerp(colors.secondary, '#FFF', 0.6)
+);
 
 const content = document.querySelector('.content');
 const overlay = document.querySelector('.projects-overlay');
-document.addEventListener('click', (e) => {
+document.addEventListener('click', e => {
   if (e.target.classList && e.target.classList.contains('projects-toggle')) {
     document.body.classList.toggle('st-show-projects');
 
@@ -51,7 +58,7 @@ document.addEventListener('click', (e) => {
   }
 });
 
-document.addEventListener('keyup', (e) => {
+document.addEventListener('keyup', e => {
   if (e.keyCode === 27) {
     document.body.classList.remove('st-show-projects');
   }
