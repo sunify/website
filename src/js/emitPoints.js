@@ -20,7 +20,7 @@ export default function emitPoints(track, width, height) {
 
   const points = [];
   for (let i = 0; i < 15; i += 1) {
-    const angle = baseAngle + (Math.PI / 3) * (0.5 - Math.random()); // spread particles a little
+    const angle = baseAngle + (Math.PI / 4) * (0.5 - Math.random()); // spread particles a little
     const len = Math.max(-10, -10 * (baseLen / 4)) * Math.random();
     points.push([
       new Point(
