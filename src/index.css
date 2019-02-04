@@ -16,7 +16,12 @@ a {
   color: #ffffff;
   /* color: var(--primary); */
   text-decoration: none;
-  background-image: linear-gradient(to left, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4) 50%, var(--primary) 50%);
+  background-image: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.4) 50%,
+    var(--primary) 50%
+  );
   background-size: 200% 1px;
   background-repeat: no-repeat;
   background-position: 100% 100%;
@@ -87,7 +92,8 @@ header {
   margin-left: -10px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: 200;
   font-size: 70px;
 
@@ -250,7 +256,8 @@ footer a .icon {
     padding-right: 0;
   }
 
-  h1, h2 {
+  h1,
+  h2 {
     font-size: 30px;
     font-weight: 300;
     text-align: center;
@@ -269,7 +276,7 @@ footer a .icon {
 
   .caption {
     font-size: 12px;
-    z-index: 2;
+    z-index: 1;
   }
 
   footer a {
@@ -282,6 +289,11 @@ footer a .icon {
 
   footer a .icon {
     display: inline;
+  }
+
+  .projects-overlay h2 {
+    margin-top: 20px;
+    padding-top: 10px;
   }
 }
 
