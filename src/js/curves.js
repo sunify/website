@@ -51,10 +51,8 @@ const rose = k => (time, width, height) => {
   return [x, y];
 };
 
-const hypocycloid = (time, width, height) => {
+const hypocycloid = (a, b) => (time, width, height) => {
   const size = Math.min(23, Math.min(width, height) / 30);
-  const a = 10;
-  const b = 3;
   const x =
     ((a - b) * Math.cos(time) + b * Math.cos((a / b - 1) * time)) * size;
   const y =
@@ -68,6 +66,13 @@ const lissajous = (a, b, phi) => (time, width, height) => {
   const B = size;
   const x = A * Math.sin(a * time + phi);
   const y = B * Math.sin(b * time);
+  return [x, y];
+};
+
+const sin = (time, width, height) => {
+  const size = Math.min(40, width / 20);
+  const x = time * size - width / 2;
+  const y = Math.sin(time) * size * 1.4;
   return [x, y];
 };
 
@@ -110,16 +115,34 @@ export default [
     url: 'https://en.wikipedia.org/wiki/Rose_(mathematics)'
   },
   {
+    getPoint: rose(2 / 3),
+    dt: 0.01,
+    title: 'Rose [2/3]',
+    url: 'https://en.wikipedia.org/wiki/Rose_(mathematics)'
+  },
+  {
     getPoint: rose(7 / 5),
     dt: 0.01,
     title: 'Rose [7/5]',
     url: 'https://en.wikipedia.org/wiki/Rose_(mathematics)'
   },
   {
-    getPoint: hypocycloid,
+    getPoint: hypocycloid(10, 3),
     dt: 0.013,
     title: 'Hypocycloid',
     url: 'https://en.wikipedia.org/wiki/Hypocycloid'
+  },
+  {
+    getPoint: hypocycloid(12, 3),
+    dt: 0.013,
+    title: 'Astroid',
+    url: 'https://en.wikipedia.org/wiki/Astroid'
+  },
+  {
+    getPoint: hypocycloid(12, 4),
+    dt: 0.013,
+    title: 'Deltoid',
+    url: 'https://en.wikipedia.org/wiki/Deltoid_curve'
   },
   {
     getPoint: lissajous(10, 12, Math.PI * 0.67),
@@ -132,5 +155,11 @@ export default [
     dt: 0.005,
     title: 'Lissajous Curve [2:3]',
     url: 'https://en.wikipedia.org/wiki/Lissajous_curve'
+  },
+  {
+    getPoint: sin,
+    dt: 0.08,
+    title: 'Sine',
+    url: 'https://en.wikipedia.org/wiki/Sine'
   }
 ];
