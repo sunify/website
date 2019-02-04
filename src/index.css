@@ -4,12 +4,12 @@
 }
 
 *:focus {
-  outline: 3px ridge var(--primary);
+  outline: 3px ridge var(--primary-fade);
 }
 
 ::selection {
   color: #000;
-  background:rgba(0, 255, 203, 0.99);
+  background: var(--primary);
 }
 
 a {
