@@ -17,13 +17,15 @@ export default function renderPoints(points, ctx) {
     );
     ctx.lineWidth = PIXEL_RATIO;
     p.update();
-    const dx =
-      ((Math.cos(p.vel.angle()) * p.vel.length() * 2) / PIXEL_RATIO) * 1.3;
-    const dy =
-      ((Math.sin(p.vel.angle()) * p.vel.length() * 2) / PIXEL_RATIO) * 1.3;
+    const offset = p.vel
+      .clone()
+      .multS(2)
+      .divS(PIXEL_RATIO)
+      .multS(1.3)
+      .add(p.pos);
     ctx.beginPath();
-    ctx.moveTo(p.pos.x + dx, p.pos.y + dy);
-    ctx.lineTo(p.pos.x, p.pos.y);
+    ctx.moveTo(offset.x * PIXEL_RATIO, offset.y * PIXEL_RATIO);
+    ctx.lineTo(p.pos.x * PIXEL_RATIO, p.pos.y * PIXEL_RATIO);
     ctx.stroke();
   });
 }

@@ -1,5 +1,5 @@
+import { Vector } from 'v-for-vector';
 import Point, { distFast } from './point';
-import Vector from 'victor';
 import { PIXEL_RATIO } from './constants';
 
 export default function emitPoints(track, width, height) {
@@ -21,13 +21,12 @@ export default function emitPoints(track, width, height) {
   const points = [];
   for (let i = 0; i < 15; i += 1) {
     const angle = baseAngle + (Math.PI / 4) * (0.5 - Math.random()); // spread particles a little
-    const len =
-      ((Math.max(-10, -10 * (baseLen / 4)) * Math.random()) / 2) * PIXEL_RATIO;
+    const len = (Math.max(-10, -10 * (baseLen / 5)) * Math.random()) / 2;
     points.push([
       new Point(
-        new Vector(x * PIXEL_RATIO, y * PIXEL_RATIO),
-        new Vector(len * Math.cos(angle), len * Math.sin(angle)),
-        new Vector(-0.1 * Math.cos(angle), -0.1 * Math.sin(angle))
+        Vector.cartesian(x, y),
+        Vector.polar(angle, len),
+        Vector.polar(angle, -0.1)
       ),
       Date.now() + 100 * Math.random(),
       angle

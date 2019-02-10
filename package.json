@@ -7,7 +7,7 @@
     "@sunify/lerp-color": "1.1.1",
     "eases": "^1.0.8",
     "run-with-fps": "^1.0.4",
-    "victor": "^1.1.0"
+    "v-for-vector": "^1.2.0"
   },
   "devDependencies": {
     "parcel-bundler": "^1.11.0"
