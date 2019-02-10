@@ -1,4 +1,5 @@
 import runWithFps from 'run-with-fps';
+import { Vector } from 'v-for-vector';
 import lerp from '@sunify/lerp-color';
 
 import { PIXEL_RATIO, POINTS_TTL } from './constants';
@@ -19,9 +20,6 @@ canvas.width = width * PIXEL_RATIO;
 canvas.height = height * PIXEL_RATIO;
 canvas.style.width = width + 'px';
 canvas.style.height = height + 'px';
-
-let track = [];
-let points = [];
 
 const curveIndex = Math.round(Math.random() * (curves.length - 1));
 const curve = curves[curveIndex];
@@ -64,24 +62,18 @@ document.addEventListener('keyup', e => {
   }
 });
 
+let track = [];
+let points = [];
 let { time = 0, dt, getPoint } = curve;
 const draw = () => {
   points = points.filter(([_, t]) => Date.now() - t < POINTS_TTL);
-  renderPoints(points, ctx);
 
   time += dt;
-
-  track.push(atCenter(getPoint(time, width, height)));
-
+  track.push(Vector.cartesian(...atCenter(getPoint(time, width, height))));
   track = track.slice(-2);
-  if (track.length === 2) {
-    ctx.strokeStyle = colors.primary;
-    ctx.beginPath();
-    ctx.moveTo(track[0][0] * PIXEL_RATIO, track[0][1] * PIXEL_RATIO);
-    ctx.lineTo(track[1][0] * PIXEL_RATIO, track[1][1] * PIXEL_RATIO);
-    ctx.stroke();
-  }
   points = points.concat(emitPoints(track, width, height));
+
+  renderPoints(points, ctx);
 };
 
 const stop = runWithFps(draw, 30);

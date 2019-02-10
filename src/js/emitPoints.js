@@ -2,21 +2,17 @@ import { Vector } from 'v-for-vector';
 import Point, { distFast } from './point';
 import { PIXEL_RATIO } from './constants';
 
-export default function emitPoints(track, width, height) {
-  if (track.length < 2) {
+export default function emitPoints([v1, v2], width, height) {
+  if (!v1 || !v2) {
     return [];
   }
 
-  const [, [x, y]] = track;
-  if ((x < 0 || x > width) && (y < 0 || y > height)) {
+  if ((v2.x < 0 || v2.x > width) && (v2.y < 0 || v2.y > height)) {
     return;
   }
 
-  const baseAngle = Math.atan2(
-    track[1][1] - track[0][1],
-    track[1][0] - track[0][0]
-  );
-  const baseLen = distFast(track[0][0], track[0][1], track[1][0], track[1][1]);
+  const baseAngle = v2.clone().sub(v1).angle;
+  const baseLen = Vector.dist(v1, v2);
 
   const points = [];
   for (let i = 0; i < 15; i += 1) {
@@ -24,7 +20,7 @@ export default function emitPoints(track, width, height) {
     const len = (Math.max(-10, -10 * (baseLen / 5)) * Math.random()) / 2;
     points.push([
       new Point(
-        Vector.cartesian(x, y),
+        v2.clone(),
         Vector.polar(angle, len),
         Vector.polar(angle, -0.1)
       ),
