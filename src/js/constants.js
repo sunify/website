@@ -1,4 +1,4 @@
-export const POINTS_TTL = 16000;
+export const POINTS_TTL = 10000;
 
 export const PIXEL_RATIO = (function() {
   var ctx = document.createElement('canvas').getContext('2d'),

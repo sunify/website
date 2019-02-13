@@ -60,22 +60,24 @@ document.addEventListener('keyup', e => {
   }
 });
 
-let points = [];
+const points = [];
 const center = Vector.cartesian(width / 2, height / 2);
 const draw = () => {
   // canvas.width = canvas.width;
-  points = points.filter(p => Date.now() - p.time < POINTS_TTL);
+  points.forEach((p, i, source) => {
+    if (!(Date.now() - p.time < POINTS_TTL)) {
+      source.splice(i, 1);
+    }
+  });
 
-  for (let i = 0; i < 1; i += 1) {
-    const angle = Math.PI * 2 * Math.random();
-    points.push(
-      new Point(
-        Vector.polar(angle, 2).add(center),
-        Vector.polar(angle, 2 * Math.random()),
-        Vector.polar(angle, 0.1)
-      )
-    );
-  }
+  const angle = Math.PI * 2 * Math.random();
+  points.push(
+    new Point(
+      Vector.polar(angle, 2).add(center),
+      Vector.polar(angle, 2 * Math.random()),
+      Vector.polar(angle, 0.1)
+    )
+  );
 
   renderPoints(points, ctx, width, height);
 };
