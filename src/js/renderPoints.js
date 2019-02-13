@@ -24,7 +24,6 @@ export default function renderPoints(points, ctx, width, height) {
 
   points.forEach(p => {
     p.update();
-    // ctx.fillRect(p.pos.x * PIXEL_RATIO, p.pos.y * PIXEL_RATIO, 2, 2);
   });
   const boxPad = 1000;
   const bbox = {
@@ -33,28 +32,24 @@ export default function renderPoints(points, ctx, width, height) {
     yt: -boxPad,
     yb: ctx.canvas.height / PIXEL_RATIO + boxPad
   };
-  // if (!diagram) {
   diagram = voronoi.compute(points, bbox);
-  // }
 
   for (let i = 0, max = diagram.edges.length; i < max; i++) {
     const { va, vb } = diagram.edges[i];
-    const d = dst(va, vb);
-    if (d < 1000) {
-      ctx.beginPath();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = lerp(
-        `rgba(#F00, 0.1)`,
-        `rgba(#FC0, 0.1)`,
-        `rgba(#F00, 0.5)`,
-        `rgba(#0FF, 0.02)`,
-        `rgba(#000, 0)`,
-        Math.min(1, dst(va, vb) / 30)
-      );
-      ctx.moveTo(va.x * PIXEL_RATIO, va.y * PIXEL_RATIO);
-      ctx.lineTo(vb.x * PIXEL_RATIO, vb.y * PIXEL_RATIO);
-      ctx.stroke();
-    }
+    const d = dst2(va, vb);
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = lerp(
+      `rgba(#F00, 0.1)`,
+      `rgba(#FC0, 0.1)`,
+      `rgba(#F00, 0.5)`,
+      `rgba(#0FF, 0.02)`,
+      `rgba(#000, 0)`,
+      Math.min(1, d / 900)
+    );
+    ctx.moveTo(va.x * PIXEL_RATIO, va.y * PIXEL_RATIO);
+    ctx.lineTo(vb.x * PIXEL_RATIO, vb.y * PIXEL_RATIO);
+    ctx.stroke();
   }
 
   points.forEach(p => {
