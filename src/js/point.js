@@ -1,18 +1,5 @@
 import { Vector } from 'v-for-vector';
 
-export function distFast(x1, y1, x2, y2) {
-  // Approximation by using octagons approach
-  const x = x2 - x1 || 0.001;
-  const y = y2 - y1 || 0.001;
-  return (
-    1.426776695 *
-    Math.min(
-      0.7071067812 * (Math.abs(x) + Math.abs(y)),
-      Math.max(Math.abs(x), Math.abs(y))
-    )
-  );
-}
-
 export default class Point {
   constructor(pos, vel, acc, friction) {
     this.pos = pos;
@@ -22,8 +9,8 @@ export default class Point {
   }
 
   update(width, height) {
-    this.vel.add(this.acc);
-    this.vel.mult(this.friction);
+    this.acc.angle += 0.014;
+    this.vel.add(this.acc).mult(this.friction);
     this.pos.add(this.vel);
   }
 }

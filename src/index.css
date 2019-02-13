@@ -22,7 +22,7 @@ a {
     rgba(255, 255, 255, 0.4) 50%,
     var(--primary) 50%
   );
-  background-size: 200% 1px;
+  background-size: 200% 2px;
   background-repeat: no-repeat;
   background-position: 100% 100%;
   transition: color 0.2s, background 0.2s;
@@ -57,7 +57,7 @@ body {
 .bg {
   position: absolute;
   display: block;
-  top: 50%;
+  top: 28%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -68,7 +68,6 @@ body {
   text-transform: uppercase;
   letter-spacing: 1px;
   position: relative;
-  /* opacity: 0; */
   z-index: 1;
   min-height: 100%;
   width: 100%;
@@ -79,6 +78,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   transition: opacity 0.3s;
+  /* opacity: 0; */
 }
 
 .caption {
@@ -98,8 +98,7 @@ header {
   line-height: 1;
 }
 
-h1,
-h2 {
+h1 {
   font-weight: 900;
   font-size: 150px;
 
@@ -107,6 +106,10 @@ h2 {
   letter-spacing: 2px;
   line-height: 0.8;
   margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 100px;
 }
 
 footer {
@@ -212,7 +215,7 @@ footer a .icon {
     font-size: 20px;
   }
 }
-
+/*
 @media screen and (max-height: 500px) {
   .content,
   .projects-overlay {
@@ -224,9 +227,26 @@ footer a .icon {
   .projects-toggle {
     top: 80px;
   }
+} */
+
+@media screen and (max-width: 1000px) {
+  h1 {
+    font-size: 100px;
+  }
+
+  header {
+    font-size: 30px;
+  }
+
+  footer {
+    font-size: 18px;
+  }
 }
 
-@media screen and (max-width: 570px) {
+@media screen and (max-width: 700px) {
+  .bg {
+    top: 40%;
+  }
   .projects-toggle {
     font-size: 13px;
     right: 50%;
@@ -238,6 +258,10 @@ footer a .icon {
     font-size: 14px;
   }
 
+  .projects-overlay {
+    padding-left: 20px;
+  }
+
   .content {
     padding-left: 20px;
     padding-top: 80px;
@@ -247,9 +271,12 @@ footer a .icon {
     padding-right: 0;
   }
 
-  h1,
-  h2 {
+  h1 {
     font-size: 40px;
+  }
+
+  h2 {
+    font-size: 30px;
   }
 
   header {

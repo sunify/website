@@ -1,6 +1,5 @@
 import { Vector } from 'v-for-vector';
-import Point, { distFast } from './point';
-import { PIXEL_RATIO } from './constants';
+import Point from './point';
 
 export default function emitPoints([v1, v2], width, height) {
   if (!v1 || !v2) {

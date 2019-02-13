@@ -11,28 +11,16 @@ export const colors = {
 const voronoi = new Voronoi();
 let diagram = null;
 
-function multiLerp(...colors) {
-  const [t] = colors.splice(-1);
-  if (colors.length < 2) {
-    throw Error('Not enought colors');
-  }
-  const steps = colors.length - 1;
-  const stepSize = 1 / steps;
-  const step = Math.min(steps - 1, Math.floor(t / stepSize));
-  const color1 = colors[step];
-  const color2 = colors[step + 1];
-
-  return lerp(color1, color2, (t - stepSize * step) / stepSize);
-}
-
 function dst(p1, p2) {
   return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
 }
 
 export default function renderPoints(points, ctx, width, height) {
   voronoi.recycle(diagram);
+
   points.forEach(([p, t]) => {
     p.update();
+    // ctx.fillRect(p.pos.x * PIXEL_RATIO, p.pos.y * PIXEL_RATIO, 2, 2);
   });
   const boxPad = 1000;
   const bbox = {
@@ -49,17 +37,23 @@ export default function renderPoints(points, ctx, width, height) {
     if (d < 1000) {
       ctx.beginPath();
       ctx.lineWidth = 3;
-      ctx.strokeStyle = multiLerp(
+      ctx.strokeStyle = lerp(
         `rgba(#F00, 0.1)`,
         `rgba(#FC0, 0.1)`,
         `rgba(#F00, 0.5)`,
-        `rgba(#2FE, 0.2)`,
+        `rgba(#0FF, 0.02)`,
         `rgba(#000, 0)`,
-        Math.min(1, dst(va, vb) / 20)
+        Math.min(1, dst(va, vb) / 30)
       );
       ctx.moveTo(va.x * PIXEL_RATIO, va.y * PIXEL_RATIO);
       ctx.lineTo(vb.x * PIXEL_RATIO, vb.y * PIXEL_RATIO);
       ctx.stroke();
     }
   }
+
+  points.forEach(([p, t]) => {
+    ctx.fillStyle = `rgba(255, 255, 255, ${1 -
+      (Date.now() - t) / (POINTS_TTL - 1000)})`;
+    ctx.fillRect(p.pos.x * PIXEL_RATIO, p.pos.y * PIXEL_RATIO, 2, 2);
+  });
 }
