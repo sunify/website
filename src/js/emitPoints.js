@@ -15,9 +15,9 @@ export default function emitPoints([v1, v2], width, height) {
   const baseLen = Vector.dist(v1, v2);
 
   const points = [];
-  for (let i = 0; i < 15; i += 1) {
-    const angle = baseAngle + (Math.PI / 4) * (0.5 - Math.random()); // spread particles a little
-    const len = (Math.max(-10, -10 * (baseLen / 5)) * Math.random()) / 2;
+  for (let i = 0; i < 3; i += 1) {
+    const angle = baseAngle + Math.PI * (0.5 - Math.random()); // spread particles a little
+    const len = baseLen;
     points.push([
       new Point(
         v2.clone(),

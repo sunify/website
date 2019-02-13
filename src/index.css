@@ -51,7 +51,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  position: fixed;
+  position: absolute;
 }
 
 .bg {
@@ -63,16 +63,21 @@ body {
 }
 
 .content {
+  font-size: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   position: relative;
+  /* opacity: 0; */
   z-index: 1;
   min-height: 100%;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 100px 10vw 60px;
+  padding: 50px 50px 60px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   transition: opacity 0.3s;
 }
 
@@ -82,47 +87,36 @@ body {
   z-index: 3;
   right: 15px;
   bottom: 15px;
+  display: none;
 }
 
 header {
   font-weight: 300;
-  font-size: 24px;
 
-  line-height: 36px;
-  margin-left: -10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 1;
 }
 
 h1,
 h2 {
-  font-weight: 200;
-  font-size: 70px;
+  font-weight: 900;
+  font-size: 150px;
 
   text-transform: uppercase;
   letter-spacing: 2px;
-  line-height: 1.18;
-  margin-bottom: 20px;
-}
-
-header span {
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(5px);
-  padding: 5.5px 10px;
-}
-
-header h1 span:first-child {
-  padding-bottom: 0;
-}
-
-header h1 span:last-child {
-  padding-top: 0;
+  line-height: 0.8;
+  margin-bottom: 10px;
 }
 
 footer {
+  font-size: 24px;
+  margin-top: 20px;
   width: 100%;
 }
 
 footer a {
-  background-color: rgba(0, 0, 0, 0.6);
+  /* background-color: rgba(0, 0, 0, 0.6); */
 }
 footer a + a {
   margin-left: 15px;
@@ -164,20 +158,17 @@ footer a .icon {
 }
 
 .projects-overlay {
-  position: fixed;
+  position: relative;
   z-index: 2;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 100%;
-  visibility: hidden;
-  /* display: none; */
+  font-weight: bold;
 
-  opacity: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 
-  padding: 100px 10vw 60px;
+  padding: 50px 50px 60px;
+  min-height: 80vh;
 
-  background-color: rgba(0, 0, 0, 0.6);
+  /* background-color: rgba(0, 0, 0, 0.6); */
   transition: opacity 0.3s, left 0s 0.3s;
   overflow-y: auto;
 }
@@ -192,7 +183,7 @@ footer a .icon {
 }
 
 .projects-overlay h3 {
-  font-weight: 200;
+  font-weight: bold;
   font-size: 24px;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -227,6 +218,7 @@ footer a .icon {
   .projects-overlay {
     padding-top: 50px;
     padding-bottom: 30px;
+    padding-left: 20px;
   }
 
   .projects-toggle {
@@ -247,8 +239,7 @@ footer a .icon {
   }
 
   .content {
-    padding-left: 5vw;
-    padding-right: 5vw;
+    padding-left: 20px;
     padding-top: 80px;
     padding-bottom: 20px;
     width: 100%;
@@ -258,25 +249,11 @@ footer a .icon {
 
   h1,
   h2 {
-    font-size: 30px;
-    font-weight: 300;
-    text-align: center;
-  }
-
-  h3 {
-    font-weight: 300 !important;
+    font-size: 40px;
   }
 
   header {
-    font-size: 16px;
-    line-height: 30px;
-    font-weight: 300;
-    text-align: center;
-  }
-
-  .caption {
-    font-size: 12px;
-    z-index: 1;
+    font-size: 20px;
   }
 
   footer a {
@@ -299,7 +276,6 @@ footer a .icon {
 
 @media screen and (max-width: 360px) {
   header {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 18px;
   }
 }
