@@ -6,6 +6,15 @@ export default class Point {
     this.acc = acc || new Vector(0, 0);
     this.vel = vel || new Vector(0, 0);
     this.friction = friction || 0.9;
+    this.time = Date.now();
+  }
+
+  get x() {
+    return this.pos.x;
+  }
+
+  get y() {
+    return this.pos.y;
   }
 
   update(width, height) {

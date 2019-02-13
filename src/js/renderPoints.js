@@ -15,10 +15,14 @@ function dst(p1, p2) {
   return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
 }
 
+function dst2(p1, p2) {
+  return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
+}
+
 export default function renderPoints(points, ctx, width, height) {
   voronoi.recycle(diagram);
 
-  points.forEach(([p, t]) => {
+  points.forEach(p => {
     p.update();
     // ctx.fillRect(p.pos.x * PIXEL_RATIO, p.pos.y * PIXEL_RATIO, 2, 2);
   });
@@ -29,7 +33,9 @@ export default function renderPoints(points, ctx, width, height) {
     yt: -boxPad,
     yb: ctx.canvas.height / PIXEL_RATIO + boxPad
   };
-  diagram = voronoi.compute(points.map(p => p[0].pos), bbox);
+  // if (!diagram) {
+  diagram = voronoi.compute(points, bbox);
+  // }
 
   for (let i = 0, max = diagram.edges.length; i < max; i++) {
     const { va, vb } = diagram.edges[i];
@@ -51,9 +57,10 @@ export default function renderPoints(points, ctx, width, height) {
     }
   }
 
-  points.forEach(([p, t]) => {
-    ctx.fillStyle = `rgba(255, 255, 255, ${1 -
-      (Date.now() - t) / (POINTS_TTL - 1000)})`;
+  points.forEach(p => {
+    ctx.fillStyle = `rgba(255, 255, 255, ${(1 -
+      (Date.now() - p.time) / POINTS_TTL) *
+      0.7})`;
     ctx.fillRect(p.pos.x * PIXEL_RATIO, p.pos.y * PIXEL_RATIO, 2, 2);
   });
 }

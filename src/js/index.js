@@ -64,18 +64,17 @@ let points = [];
 const center = Vector.cartesian(width / 2, height / 2);
 const draw = () => {
   // canvas.width = canvas.width;
-  points = points.filter(([_, t]) => Date.now() - t < POINTS_TTL);
+  points = points.filter(p => Date.now() - p.time < POINTS_TTL);
 
   for (let i = 0; i < 1; i += 1) {
     const angle = Math.PI * 2 * Math.random();
-    points.push([
+    points.push(
       new Point(
         Vector.polar(angle, 2).add(center),
         Vector.polar(angle, 2 * Math.random()),
         Vector.polar(angle, 0.1)
-      ),
-      Date.now() + 1000 * Math.random()
-    ]);
+      )
+    );
   }
 
   renderPoints(points, ctx, width, height);
