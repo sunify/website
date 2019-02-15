@@ -4,14 +4,20 @@ import lerp from '@sunify/lerp-color';
 import SimplexNoise from 'simplex-noise';
 import hexRgb from 'hex-rgb';
 import eases from 'eases';
+import tumult from 'tumult';
 
 import Point from './point';
 import { PIXEL_RATIO, POINTS_TTL } from './constants';
 import renderPoints, { colors } from './renderPoints';
 
+const perlin = new tumult.Perlin3();
+const simplex2 = new tumult.Simplex2();
+
 const width = window.innerWidth;
 const height = window.innerHeight;
 
+const offscreen = new OffscreenCanvas(width, height);
+const offscreenCtx = offscreen.getContext('2d');
 const canvas = document.getElementById('bg');
 const ctx = canvas.getContext('2d');
 canvas.width = width;
@@ -67,30 +73,36 @@ function memlerp(colors, steps = 10) {
 }
 
 const noise = new SimplexNoise(Math.random);
-const colorMap = memlerp(
-  ['#b1d6f8', '#8569e0', '#ec79cb', '#fdedb2', '#3e36e2'],
-  50
-);
+const palette = ['#b1d6f8', '#8569e0', '#ec79cb', '#fdedb2', '#3e36e2'];
+const colorMap = memlerp(palette, 20);
+canvas.style.backgroundColor =
+  palette[Math.round(Math.random() * (palette.length - 1))];
 const sizeX = width;
 const sizeY = height;
 let t = 0;
 const drawNoise = () => {
   t += 0.008;
-  const data = ctx.getImageData(0, 0, sizeX, sizeY);
+  offscreen.width = offscreen.width;
+  const data = offscreenCtx.getImageData(0, 0, sizeX, sizeY);
   for (let x = 0; x < sizeX; x += 1) {
     for (let y = 0; y < sizeY; y += 1) {
       const i = y * sizeX + x;
       const n = (noise.noise3D(x / 2000, y / 2000, t) + 1) / 2;
+      // if (Math.round(n * 200) % 10 === 0) {
       const color = colorMap(eases.cubicOut(n));
       data.data[i * 4] = color[0];
       data.data[i * 4 + 1] = color[1];
       data.data[i * 4 + 2] = color[2];
-      data.data[i * 4 + 3] = color[3] * 255;
+      data.data[i * 4 + 3] = 220 + Math.random() * 35;
+      // }
     }
   }
-  ctx.putImageData(data, 0, 0);
+  offscreenCtx.putImageData(data, 0, 0);
+  canvas.width = canvas.width;
+  ctx.drawImage(offscreen, 0, 0);
 };
 
+// setTimeout();
 const draw = () => {
   drawNoise();
   // points.forEach((p, i, source) => {
@@ -109,7 +121,7 @@ const draw = () => {
   // renderPoints(points, ctx, width, height);
 };
 
-const stop = runWithFps(draw, 10);
+const stop = runWithFps(draw, 5);
 
 // Handle hot module replacement
 if (module.hot) {
