@@ -63,6 +63,13 @@ body {
   height: calc(100vh - 50px) !important;
 }
 
+.bg canvas {
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
 .content {
   font-size: 40px;
   font-weight: 300;

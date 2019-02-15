@@ -8,5 +8,3 @@ self.onmessage = function({ data: { canvas } }) {
     drawNoise(canvas, ctx);
   }, 10);
 };
-// console.log('beforefill');
-// console.log('fill');

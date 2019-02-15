@@ -4,13 +4,13 @@ import { PIXEL_RATIO } from './constants';
 const width = window.innerWidth;
 const height = window.innerHeight;
 
+const bg = document.querySelector('.bg');
 const canvas = document.getElementById('bg');
-const isStatic = !('OffscreenCanvas' in window);
-canvas.width = isStatic ? width * PIXEL_RATIO : width;
-canvas.height = isStatic ? height * PIXEL_RATIO : width;
+const isStatic = true; //!('OffscreenCanvas' in window);
+canvas.width = isStatic ? width * PIXEL_RATIO : width / 4;
+canvas.height = isStatic ? height * PIXEL_RATIO : width / 4;
 canvas.style.width = width + 'px';
 canvas.style.height = height + 'px';
-console.log(isStatic, canvas.width, width);
 
 // document.documentElement.style.setProperty('--primary', colors.primary);
 // document.documentElement.style.setProperty(
@@ -22,7 +22,7 @@ console.log(isStatic, canvas.width, width);
 //   lerp(colors.secondary, '#FFF', 0.6)
 // );
 
-canvas.style.backgroundColor =
+bg.style.backgroundColor =
   palette[Math.round(Math.random() * (palette.length - 1))];
 
 if (!isStatic) {
@@ -31,8 +31,10 @@ if (!isStatic) {
   worker.postMessage({ canvas: offscr }, [offscr]);
 } else {
   setTimeout(() => {
-    drawNoise(canvas, canvas.getContext('2d'));
-  });
+    const ctx = canvas.getContext('2d');
+    drawNoise(canvas, ctx);
+    canvas.style.opacity = 1;
+  }, 10);
 }
 
 // Handle hot module replacement
