@@ -66,21 +66,21 @@ function memlerp(colors, steps = 10) {
   };
 }
 
-const points = [];
-const center = Vector.cartesian(width / 2, height / 2);
 const noise = new SimplexNoise(Math.random);
 const colorMap = memlerp(
-  ['#b1d6f8', '#8569e0', '#ec79cb', '#fdedb2', '#3e36e2', '#344477'],
-  30
+  ['#b1d6f8', '#8569e0', '#ec79cb', '#fdedb2', '#3e36e2'],
+  50
 );
 const sizeX = width;
 const sizeY = height;
+let t = 0;
 const drawNoise = () => {
+  t += 0.008;
   const data = ctx.getImageData(0, 0, sizeX, sizeY);
   for (let x = 0; x < sizeX; x += 1) {
     for (let y = 0; y < sizeY; y += 1) {
       const i = y * sizeX + x;
-      const n = (noise.noise2D(x / 2000, y / 2000) + 1) / 2;
+      const n = (noise.noise3D(x / 2000, y / 2000, t) + 1) / 2;
       const color = colorMap(eases.cubicOut(n));
       data.data[i * 4] = color[0];
       data.data[i * 4 + 1] = color[1];
@@ -91,8 +91,8 @@ const drawNoise = () => {
   ctx.putImageData(data, 0, 0);
 };
 
-drawNoise();
 const draw = () => {
+  drawNoise();
   // points.forEach((p, i, source) => {
   //   if (!(Date.now() - p.time < POINTS_TTL)) {
   //     source.splice(i, 1);
@@ -109,7 +109,7 @@ const draw = () => {
   // renderPoints(points, ctx, width, height);
 };
 
-const stop = runWithFps(draw, 0);
+const stop = runWithFps(draw, 10);
 
 // Handle hot module replacement
 if (module.hot) {

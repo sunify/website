@@ -79,7 +79,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   transition: opacity 0.3s;
-  opacity: 0;
+  /* opacity: 0; */
 }
 
 .caption {
