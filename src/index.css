@@ -57,9 +57,10 @@ body {
 .bg {
   position: absolute;
   display: block;
-  top: 28%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 25px;
+  left: 25px;
+  width: calc(100% - 50px) !important;
+  height: calc(100% - 50px) !important;
 }
 
 .content {
@@ -78,7 +79,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   transition: opacity 0.3s;
-  /* opacity: 0; */
+  opacity: 0;
 }
 
 .caption {
