@@ -1,133 +1,41 @@
-import runWithFps from 'run-with-fps';
-import { Vector } from 'v-for-vector';
-import lerp from '@sunify/lerp-color';
-import SimplexNoise from 'simplex-noise';
-import hexRgb from 'hex-rgb';
-import eases from 'eases';
-import tumult from 'tumult';
-
-import Point from './point';
-import { PIXEL_RATIO, POINTS_TTL } from './constants';
-import renderPoints, { colors } from './renderPoints';
-
-const perlin = new tumult.Perlin3();
-const simplex2 = new tumult.Simplex2();
+import drawNoise, { palette } from './drawNoise';
+import { PIXEL_RATIO } from './constants';
 
 const width = window.innerWidth;
 const height = window.innerHeight;
 
-const offscreen = new OffscreenCanvas(width, height);
-const offscreenCtx = offscreen.getContext('2d');
 const canvas = document.getElementById('bg');
-const ctx = canvas.getContext('2d');
-canvas.width = width;
-canvas.height = height;
+const isStatic = !('OffscreenCanvas' in window);
+canvas.width = isStatic ? width * PIXEL_RATIO : width;
+canvas.height = isStatic ? height * PIXEL_RATIO : width;
 canvas.style.width = width + 'px';
 canvas.style.height = height + 'px';
+console.log(isStatic, canvas.width, width);
 
-document.documentElement.style.setProperty('--primary', colors.primary);
-document.documentElement.style.setProperty(
-  '--primary-fade',
-  `${colors.primary}AA`
-);
-document.documentElement.style.setProperty(
-  '--secondary',
-  lerp(colors.secondary, '#FFF', 0.6)
-);
+// document.documentElement.style.setProperty('--primary', colors.primary);
+// document.documentElement.style.setProperty(
+//   '--primary-fade',
+//   `${colors.primary}AA`
+// );
+// document.documentElement.style.setProperty(
+//   '--secondary',
+//   lerp(colors.secondary, '#FFF', 0.6)
+// );
 
-const content = document.querySelector('.content');
-const overlay = document.querySelector('.projects-overlay');
-document.addEventListener('click', e => {
-  if (e.target.classList && e.target.classList.contains('projects-toggle')) {
-    document.body.classList.toggle('st-show-projects');
-
-    if (document.body.classList.contains('st-show-projects')) {
-      overlay.setAttribute('tabindex', '0');
-      content.setAttribute('tabindex', '-1');
-      overlay.focus();
-    } else {
-      overlay.setAttribute('tabindex', '-1');
-      content.setAttribute('tabindex', '0');
-      content.focus();
-    }
-  }
-});
-
-document.addEventListener('keyup', e => {
-  if (e.keyCode === 27) {
-    document.body.classList.remove('st-show-projects');
-  }
-});
-
-function memlerp(colors, steps = 10) {
-  const cache = {};
-  return t => {
-    const step = Math.floor(t / (1 / steps));
-    cache[step] =
-      cache[step] ||
-      hexRgb(lerp(...colors, t), {
-        format: 'array'
-      });
-    return cache[step];
-  };
-}
-
-const noise = new SimplexNoise(Math.random);
-const palette = ['#b1d6f8', '#8569e0', '#ec79cb', '#fdedb2', '#3e36e2'];
-const colorMap = memlerp(palette, 20);
 canvas.style.backgroundColor =
   palette[Math.round(Math.random() * (palette.length - 1))];
-const sizeX = width;
-const sizeY = height;
-let t = 0;
-const drawNoise = () => {
-  t += 0.008;
-  offscreen.width = offscreen.width;
-  const data = offscreenCtx.getImageData(0, 0, sizeX, sizeY);
-  for (let x = 0; x < sizeX; x += 1) {
-    for (let y = 0; y < sizeY; y += 1) {
-      const i = y * sizeX + x;
-      const n = (noise.noise3D(x / 2000, y / 2000, t) + 1) / 2;
-      // if (Math.round(n * 200) % 10 === 0) {
-      const color = colorMap(eases.cubicOut(n));
-      data.data[i * 4] = color[0];
-      data.data[i * 4 + 1] = color[1];
-      data.data[i * 4 + 2] = color[2];
-      data.data[i * 4 + 3] = 220 + Math.random() * 35;
-      // }
-    }
-  }
-  offscreenCtx.putImageData(data, 0, 0);
-  canvas.width = canvas.width;
-  ctx.drawImage(offscreen, 0, 0);
-};
 
-// setTimeout();
-const draw = () => {
-  drawNoise();
-  // points.forEach((p, i, source) => {
-  //   if (!(Date.now() - p.time < POINTS_TTL)) {
-  //     source.splice(i, 1);
-  //   }
-  // });
-  // const angle = Math.PI * 2 * Math.random();
-  // points.push(
-  //   new Point(
-  //     Vector.polar(angle, 2).add(center),
-  //     Vector.polar(angle, 2 * Math.random()),
-  //     Vector.polar(angle, 0.1)
-  //   )
-  // );
-  // renderPoints(points, ctx, width, height);
-};
-
-const stop = runWithFps(draw, 5);
+if (!isStatic) {
+  const offscr = canvas.transferControlToOffscreen();
+  const worker = new Worker('canvas-worker.js');
+  worker.postMessage({ canvas: offscr }, [offscr]);
+} else {
+  setTimeout(() => {
+    drawNoise(canvas, canvas.getContext('2d'));
+  });
+}
 
 // Handle hot module replacement
 if (module.hot) {
-  module.hot.dispose(() => {
-    if (stop) {
-      stop();
-    }
-  });
+  module.hot.dispose(() => {});
 }
