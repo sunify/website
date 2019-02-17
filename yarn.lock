@@ -4336,6 +4336,10 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
+tooloud@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/tooloud/-/tooloud-2.0.4.tgz#c4a69b9db8e5c1a41bcd936e1941963150b2559f"
+
 trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"

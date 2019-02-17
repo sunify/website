@@ -1,3 +1,4 @@
+import runWithFps from 'run-with-fps';
 import drawNoise, { palette } from './drawNoise';
 import { PIXEL_RATIO } from './constants';
 
@@ -6,9 +7,8 @@ const height = window.innerHeight;
 
 const bg = document.querySelector('.bg');
 const canvas = document.getElementById('bg');
-const isStatic = true; //!('OffscreenCanvas' in window);
-canvas.width = isStatic ? width * PIXEL_RATIO : width / 4;
-canvas.height = isStatic ? height * PIXEL_RATIO : width / 4;
+canvas.width = width * PIXEL_RATIO;
+canvas.height = height * PIXEL_RATIO;
 canvas.style.width = width + 'px';
 canvas.style.height = height + 'px';
 
@@ -25,15 +25,18 @@ canvas.style.height = height + 'px';
 bg.style.backgroundColor =
   palette[Math.round(Math.random() * (palette.length - 1))];
 
-if (!isStatic) {
+if ('OffscreenCanvas' in window) {
   const offscr = canvas.transferControlToOffscreen();
   const worker = new Worker('canvas-worker.js');
   worker.postMessage({ canvas: offscr }, [offscr]);
+  canvas.style.opacity = 1;
 } else {
   setTimeout(() => {
     const ctx = canvas.getContext('2d');
     drawNoise(canvas, ctx);
-    canvas.style.opacity = 1;
+    setTimeout(() => {
+      canvas.style.opacity = 1;
+    });
   }, 10);
 }
 
