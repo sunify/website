@@ -29,7 +29,7 @@
     <meta name="msapplication-config" content="/favicons/browserconfig.xml" />
     <meta name="theme-color" content="#000000" />
     <link
-      href="https://fonts.googleapis.com/css?family=Work+Sans:200,300"
+      href="https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,600,700,900"
       rel="stylesheet"
     />
 
@@ -100,9 +100,8 @@
           ><span>linkedin</span></a
         >
       </footer>
-      <button class="projects-toggle">Projects</button>
     </div>
-    <div class="projects-overlay">
+    <div class="projects">
       <h2>Projects</h2>
 
       <ul>
@@ -148,52 +147,13 @@
           <p>Experiments with canvas, physics and visualizations</p>
         </li>
       </ul>
-
-      <button class="projects-toggle">Close</button>
     </div>
     <div class="caption" id="caption"></div>
-    <div class="bg-wrapper"><canvas id="bg" class="bg"></canvas></div>
+    <div class="bg-wrapper">
+      <div class="bg">
+        <canvas id="bg"></canvas>
+      </div>
+    </div>
     <script src="src/js/index.js"></script>
-
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-      (function(d, w, c) {
-        (w[c] = w[c] || []).push(function() {
-          try {
-            w.yaCounter30855996 = new Ya.Metrika({
-              id: 30855996,
-              clickmap: true,
-              accurateTrackBounce: true
-            });
-          } catch (e) {}
-        });
-
-        var n = d.getElementsByTagName('script')[0],
-          s = d.createElement('script'),
-          f = function() {
-            n.parentNode.insertBefore(s, n);
-          };
-        s.type = 'text/javascript';
-        s.async = true;
-        s.src =
-          (d.location.protocol == 'https:' ? 'https:' : 'http:') +
-          '//mc.yandex.ru/metrika/watch.js';
-
-        if (w.opera == '[object Opera]') {
-          d.addEventListener('DOMContentLoaded', f, false);
-        } else {
-          f();
-        }
-      })(document, window, 'yandex_metrika_callbacks');
-    </script>
-    <noscript
-      ><div>
-        <img
-          src="//mc.yandex.ru/watch/30855996"
-          style="position:absolute; left:-9999px;"
-          alt=""
-        /></div
-    ></noscript>
-    <!-- /Yandex.Metrika counter -->
   </body>
 </html>
