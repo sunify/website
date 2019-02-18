@@ -199,22 +199,19 @@ void main( void ) {
 
   vec3 color = vec3(0.0);
   float n = (snoise(vec3(position, time / 40000.0)) + 1.0) / 2.0;
-  float width1 = 0.0009;
 
+  float width1 = 0.008;
   if (
-    inRange(n, 0.1, width1) ||
-    inRange(n, 0.3, width1) ||
-    inRange(n, 0.7, width1) ||
-    inRange(n, 0.9, width1)
+    inRange(n, 0.4, width1) ||
+    inRange(n, 0.7, width1)
   ) {
     color = vec3(0.4, 0.0, 1.0);
   }
 
   float width2 = 0.006;
   if (
-    inRange(n, 0.0, width2) ||
-    inRange(n, 0.5, width2) ||
-    inRange(n, 1.0 - width2, width2)
+    inRange(n, 0.6, width2) ||
+    inRange(n, 0.8, width2)
   ) {
     color = vec3(0.0, 1.0, 0.8);
   }

@@ -41,11 +41,7 @@ const surface = {
   centerX: 0,
   centerY: 0,
   width: 1,
-  height: 1,
-  isPanning: false,
-  isZooming: false,
-  lastX: 0,
-  lastY: 0
+  height: 1
 };
 let frontTarget, backTarget, screenProgram;
 
