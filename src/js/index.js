@@ -76,8 +76,38 @@ if (gl) {
 compile();
 
 onWindowResize();
-// window.addEventListener('resize', onWindowResize, false);
+window.addEventListener('resize', onWindowResize, false);
 compileScreenProgram();
+
+function computeSurfaceCorners() {
+  if (gl) {
+    surface.width =
+      (surface.height * parameters.screenWidth) / parameters.screenHeight;
+
+    var halfWidth = surface.width * 0.5,
+      halfHeight = surface.height * 0.5;
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, surface.buffer);
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array([
+        surface.centerX - halfWidth,
+        surface.centerY - halfHeight,
+        surface.centerX + halfWidth,
+        surface.centerY - halfHeight,
+        surface.centerX - halfWidth,
+        surface.centerY + halfHeight,
+        surface.centerX + halfWidth,
+        surface.centerY - halfHeight,
+        surface.centerX + halfWidth,
+        surface.centerY + halfHeight,
+        surface.centerX - halfWidth,
+        surface.centerY + halfHeight
+      ]),
+      gl.STATIC_DRAW
+    );
+  }
+}
 
 function compile() {
   const program = gl.createProgram();
@@ -232,6 +262,7 @@ function onWindowResize() {
   canvas.style.height = window.innerHeight + 'px';
   parameters.screenWidth = canvas.width;
   parameters.screenHeight = canvas.height;
+  computeSurfaceCorners();
   if (gl) {
     gl.viewport(0, 0, canvas.width, canvas.height);
     createRenderTargets();

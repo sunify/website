@@ -151,7 +151,7 @@ void main( void ) {
   position *= 0.3;
 
   float n = (snoise(vec3(position, time / 40000.0)) + 1.0) / 2.0;
-  vec4 color = paletteColor(n, 45.0);
+  vec4 color = paletteColor(n, 30.0);
 
   gl_FragColor = color;
 }
