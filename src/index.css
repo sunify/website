@@ -66,8 +66,9 @@ body {
 .bg canvas {
   width: 100% !important;
   height: 100% !important;
-  opacity: 0;
+  /* opacity: 0; */
   transition: opacity 0.2s;
+  background-color: #000000;
 }
 
 .content {
@@ -80,10 +81,10 @@ body {
   min-height: 100%;
   width: 100%;
   box-sizing: border-box;
-  padding: 80px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   transition: opacity 0.3s;
   /* opacity: 0; */
 }
@@ -142,7 +143,7 @@ footer a .icon {
   text-transform: uppercase;
   letter-spacing: 1px;
 
-  padding: 50px 50px 60px;
+  padding: 100px 20px;
   min-height: 80vh;
 
   /* background-color: rgba(0, 0, 0, 0.6); */
@@ -172,14 +173,6 @@ footer a .icon {
   visibility: hidden;
 }
 
-.st-show-projects .projects-overlay {
-  /* display: block; */
-  opacity: 1;
-  left: 0;
-  transition: opacity 0.3s;
-  visibility: visible;
-}
-
 @media screen and (max-width: 650px) {
   h1 {
     font-size: 50px;
@@ -205,24 +198,21 @@ footer a .icon {
 }
 
 @media screen and (max-width: 700px) {
-  .bg {
-  }
-
   footer {
     font-size: 14px;
   }
 
   .projects-overlay {
     padding-left: 20px;
+    padding-top: 20px;
   }
 
   .content {
-    padding-left: 30px;
-    padding-top: 80px;
-    padding-bottom: 30px;
+    padding-left: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     width: 100%;
     max-width: none;
-    padding-right: 0;
   }
 
   h1 {
