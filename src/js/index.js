@@ -1,11 +1,9 @@
 import runWithFps from 'run-with-fps';
-import { palette } from './drawNoise';
 import { PIXEL_RATIO } from './constants';
 import noiseShader from './noise.glsl';
 
 const RESOLUTION = PIXEL_RATIO;
 
-const bg = document.querySelector('.bg');
 const canvas = document.getElementById('bg');
 
 // document.documentElement.style.setProperty('--primary', colors.primary);
@@ -18,11 +16,7 @@ const canvas = document.getElementById('bg');
 //   lerp(colors.secondary, '#FFF', 0.6)
 // );
 
-bg.style.backgroundColor =
-  palette[Math.round(Math.random() * (palette.length - 1))];
-
 // mostly copy-pasted from glslsandbox
-
 let gl;
 let buffer;
 let currentProgram;
@@ -82,38 +76,8 @@ if (gl) {
 compile();
 
 onWindowResize();
-window.addEventListener('resize', onWindowResize, false);
+// window.addEventListener('resize', onWindowResize, false);
 compileScreenProgram();
-
-function computeSurfaceCorners() {
-  if (gl) {
-    surface.width =
-      (surface.height * parameters.screenWidth) / parameters.screenHeight;
-
-    var halfWidth = surface.width * 0.5,
-      halfHeight = surface.height * 0.5;
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, surface.buffer);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array([
-        surface.centerX - halfWidth,
-        surface.centerY - halfHeight,
-        surface.centerX + halfWidth,
-        surface.centerY - halfHeight,
-        surface.centerX - halfWidth,
-        surface.centerY + halfHeight,
-        surface.centerX + halfWidth,
-        surface.centerY - halfHeight,
-        surface.centerX + halfWidth,
-        surface.centerY + halfHeight,
-        surface.centerX - halfWidth,
-        surface.centerY + halfHeight
-      ]),
-      gl.STATIC_DRAW
-    );
-  }
-}
 
 function compile() {
   const program = gl.createProgram();
@@ -148,6 +112,7 @@ function compile() {
   cacheUniformLocation(program, 'resolution');
   cacheUniformLocation(program, 'backbuffer');
   cacheUniformLocation(program, 'surfaceSize');
+  cacheUniformLocation(program, 'pallete');
   // Load program into GPU
   gl.useProgram(currentProgram);
   // Set up buffers
@@ -190,6 +155,9 @@ function compileScreenProgram() {
 function cacheUniformLocation(program, label) {
   if (program.uniformsCache === undefined) {
     program.uniformsCache = {};
+  }
+
+  if (label === 'palette') {
   }
   program.uniformsCache[label] = gl.getUniformLocation(program, label);
 }
@@ -264,7 +232,6 @@ function onWindowResize() {
   canvas.style.height = window.innerHeight + 'px';
   parameters.screenWidth = canvas.width;
   parameters.screenHeight = canvas.height;
-  computeSurfaceCorners();
   if (gl) {
     gl.viewport(0, 0, canvas.width, canvas.height);
     createRenderTargets();
@@ -326,7 +293,7 @@ function render() {
   // Swap buffers
   [frontTarget, backTarget] = [backTarget, frontTarget];
 }
-const stop = runWithFps(render, 24);
+const stop = runWithFps(render, 20);
 
 // Handle hot module replacement
 if (module.hot) {
