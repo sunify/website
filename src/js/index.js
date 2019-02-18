@@ -255,9 +255,27 @@ function createShader(src, type) {
   return shader;
 }
 
+const BIG_AREA = 1600 * 1100 * 1.5;
+const MEDIUM_AREA = 1600 * 1100;
+function getScale() {
+  const area = window.innerWidth * window.innerHeight;
+
+  if (area > BIG_AREA) {
+    return 0.5;
+  }
+
+  if (area > MEDIUM_AREA) {
+    return 1;
+  }
+
+  return PIXEL_RATIO;
+}
+
 function onWindowResize() {
-  canvas.width = window.innerWidth * RESOLUTION;
-  canvas.height = window.innerHeight * RESOLUTION;
+  const scale = getScale();
+  console.log(window.innerWidth, window.innerHeight, scale);
+  canvas.width = window.innerWidth * scale;
+  canvas.height = window.innerHeight * scale;
   canvas.style.width = window.innerWidth + 'px';
   canvas.style.height = window.innerHeight + 'px';
   parameters.screenWidth = canvas.width;
@@ -275,7 +293,7 @@ function render() {
   gl.useProgram(currentProgram);
   gl.uniform1f(
     currentProgram.uniformsCache['time'],
-    (parameters.time + parameters.timeOffset) / 100000
+    (parameters.time + parameters.timeOffset) / 50000
   );
   gl.uniform2f(
     currentProgram.uniformsCache['offset'],

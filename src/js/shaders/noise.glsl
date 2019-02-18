@@ -1,6 +1,4 @@
-#ifdef GL_ES
-precision highp float;
-#endif
+precision mediump float;
 
 #extension GL_OES_standard_derivatives : enable
 
@@ -29,7 +27,7 @@ vec4 mod289(vec4 x) {
 }
 
 vec4 permute(vec4 x) {
-     return mod289(((x*34.0)+1.0)*x);
+  return mod289(((x*34.0)+1.0)*x);
 }
 
 vec4 taylorInvSqrt(vec4 r)
@@ -37,8 +35,7 @@ vec4 taylorInvSqrt(vec4 r)
   return 1.79284291400159 - 0.85373472095314 * r;
 }
 
-float snoise(vec3 v)
-  {
+float snoise(vec3 v) {
   const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
   const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
 
@@ -142,6 +139,11 @@ vec4 paletteColor(float n, float steps) {
   return color;
 }
 
+float cubicOut(float t) {
+  float f = t - 1.0;
+  return f * f * f + 1.0;
+}
+
 void main( void ) {
   vec2 position = (gl_FragCoord.xy / resolution.xy) + offset;
   position.x *= resolution.x/resolution.y;
@@ -150,23 +152,7 @@ void main( void ) {
   position *= .3;
 
   float n = (snoise(vec3(position, time)) + 1.0) / 2.0;
-  vec4 color = paletteColor(n, 30.0);
-
-  // vec4 color = vec4(0.0);
-  // float m = mod(n * 10.0, 10.0);
-  // if (
-  //   m > 0.9 && m < 1.0 ||
-  //   m > 1.9 && m < 2.0 ||
-  //   m > 2.9 && m < 3.0 ||
-  //   m > 3.9 && m < 4.0 ||
-  //   m > 4.9 && m < 5.0 ||
-  //   m > 5.9 && m < 6.0 ||
-  //   m > 6.9 && m < 7.0 ||
-  //   m > 7.9 && m < 8.0 ||
-  //   m > 8.9 && m < 9.0
-  // ) {
-  //   color = vec4(0.0, 1.0, 1.0, 1.0);
-  // }
+  vec4 color = paletteColor(cubicOut(n), 30.0);
 
   gl_FragColor = color;
 }
