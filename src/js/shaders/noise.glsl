@@ -146,12 +146,27 @@ void main( void ) {
   vec2 position = (gl_FragCoord.xy / resolution.xy) + offset;
   position.x *= resolution.x/resolution.y;
 
-
   // scale — lower is closer
-  position *= 0.3;
+  position *= .3;
 
-  float n = (snoise(vec3(position, time / 40000.0)) + 1.0) / 2.0;
+  float n = (snoise(vec3(position, time)) + 1.0) / 2.0;
   vec4 color = paletteColor(n, 30.0);
+
+  // vec4 color = vec4(0.0);
+  // float m = mod(n * 10.0, 10.0);
+  // if (
+  //   m > 0.9 && m < 1.0 ||
+  //   m > 1.9 && m < 2.0 ||
+  //   m > 2.9 && m < 3.0 ||
+  //   m > 3.9 && m < 4.0 ||
+  //   m > 4.9 && m < 5.0 ||
+  //   m > 5.9 && m < 6.0 ||
+  //   m > 6.9 && m < 7.0 ||
+  //   m > 7.9 && m < 8.0 ||
+  //   m > 8.9 && m < 9.0
+  // ) {
+  //   color = vec4(0.0, 1.0, 1.0, 1.0);
+  // }
 
   gl_FragColor = color;
 }

@@ -14,13 +14,12 @@
 
 a {
   color: inherit;
-  /* color: var(--primary); */
   text-decoration: none;
   background-image: linear-gradient(
     to left,
-    rgba(0, 0, 0, 0.4),
-    rgba(0, 0, 0, 0.4) 50%,
-    var(--primary) 50%
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.4) 50%,
+    #fff 50%
   );
   background-size: 200% 2px;
   background-repeat: no-repeat;
@@ -116,6 +115,7 @@ h1 {
 
 h2 {
   font-size: 100px;
+  text-transform: uppercase;
 }
 
 footer {
@@ -135,42 +135,33 @@ footer a .icon {
   display: none;
 }
 
-.projects-overlay {
+.projects {
+  font-size: 20px;
   position: relative;
   z-index: 2;
-  font-weight: bold;
-
-  text-transform: uppercase;
-  letter-spacing: 1px;
 
   padding: 100px 20px;
   min-height: 80vh;
 
-  /* background-color: rgba(0, 0, 0, 0.6); */
   transition: opacity 0.3s, left 0s 0.3s;
   overflow-y: auto;
 }
 
-.projects-overlay ul {
+.projects ul {
   list-style: none;
   margin-top: 30px;
 }
 
-.projects-overlay ul li + li {
+.projects ul li + li {
   margin-top: 20px;
 }
 
-.projects-overlay h3 {
-  font-weight: bold;
-  font-size: 24px;
+.projects h3 {
+  font-weight: 300;
+  font-size: 30px;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 5px;
-}
-
-.st-show-projects .content {
-  opacity: 0;
-  visibility: hidden;
 }
 
 @media screen and (max-width: 650px) {
@@ -202,7 +193,7 @@ footer a .icon {
     font-size: 14px;
   }
 
-  .projects-overlay {
+  .projects {
     padding-left: 20px;
     padding-top: 20px;
   }
@@ -239,7 +230,7 @@ footer a .icon {
     display: inline;
   }
 
-  .projects-overlay h2 {
+  .projects h2 {
     margin-top: 20px;
     padding-top: 10px;
   }

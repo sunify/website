@@ -1,6 +1,10 @@
 import runWithFps from 'run-with-fps';
 import { PIXEL_RATIO } from './constants';
-import noiseShader from './noise.glsl';
+
+import noiseShader from './shaders/noise.glsl';
+import screenFrag from './shaders/screenFragment.glsl';
+import vertexShader from './shaders/vertexShader.glsl';
+import surfaceVertexShader from './shaders/surfaceVertex.glsl';
 
 const RESOLUTION = PIXEL_RATIO;
 
@@ -111,10 +115,8 @@ function computeSurfaceCorners() {
 
 function compile() {
   const program = gl.createProgram();
-  const fragment = noiseShader;
-  const vertex = document.getElementById('surfaceVertexShader').textContent;
-  const vs = createShader(vertex, gl.VERTEX_SHADER);
-  const fs = createShader(fragment, gl.FRAGMENT_SHADER);
+  const vs = createShader(surfaceVertexShader, gl.VERTEX_SHADER);
+  const fs = createShader(noiseShader, gl.FRAGMENT_SHADER);
   if (vs == null || fs == null) return null;
   gl.attachShader(program, vs);
   gl.attachShader(program, fs);
@@ -159,10 +161,8 @@ function compileScreenProgram() {
     return;
   }
   const program = gl.createProgram();
-  const fragment = document.getElementById('fragmentShader').textContent;
-  const vertex = document.getElementById('vertexShader').textContent;
-  const vs = createShader(vertex, gl.VERTEX_SHADER);
-  const fs = createShader(fragment, gl.FRAGMENT_SHADER);
+  const vs = createShader(vertexShader, gl.VERTEX_SHADER);
+  const fs = createShader(screenFrag, gl.FRAGMENT_SHADER);
   gl.attachShader(program, vs);
   gl.attachShader(program, fs);
   gl.deleteShader(vs);
@@ -275,7 +275,7 @@ function render() {
   gl.useProgram(currentProgram);
   gl.uniform1f(
     currentProgram.uniformsCache['time'],
-    parameters.time + parameters.timeOffset
+    (parameters.time + parameters.timeOffset) / 100000
   );
   gl.uniform2f(
     currentProgram.uniformsCache['offset'],
