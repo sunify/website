@@ -185,7 +185,7 @@ void main( void ) {
   position *= 0.3;
 
   float n = (snoise(vec3(position, time)) + 1.0) / 2.0;
-  vec4 color = mix(paletteColor(n, 40.0), vec4(n1), 0.04);
+  vec4 color = mix(paletteColor(n, 40.0), vec4(n1), 0.02);
   // vec4 color = vec4(n1 / 10.0);
 
   // if (mod(n * 300.0, 10.0) < 1.0) {

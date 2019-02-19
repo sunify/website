@@ -256,7 +256,7 @@ function getScale() {
     return 1;
   }
 
-  return PIXEL_RATIO;
+  return 1;
 }
 
 function onWindowResize() {
