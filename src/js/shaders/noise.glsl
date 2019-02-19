@@ -1,4 +1,4 @@
-precision mediump float;
+precision highp float;
 
 #extension GL_OES_standard_derivatives : enable
 
@@ -24,6 +24,14 @@ vec3 mod289(vec3 x) {
 
 vec4 mod289(vec4 x) {
   return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+vec2 mod289(vec2 x) {
+  return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+vec3 permute(vec3 x) {
+  return mod289(((x*34.0)+1.0)*x);
 }
 
 vec4 permute(vec4 x) {
@@ -119,11 +127,23 @@ vec4 paletteColor(float n, float steps) {
     n = floor(n / stepSize) * stepSize;
   }
 
-  vec4 c0 = vec4(0.6941176470588235, 0.8392156862745098, 0.9725490196078431, 1);
-  vec4 c1 = vec4(0.5215686274509804, 0.4117647058823529, 0.8784313725490196, 1);
-  vec4 c2 = vec4(0.9254901960784314, 0.4745098039215686, 0.796078431372549, 1);
-  vec4 c3 = vec4(0.9921568627450981, 0.9294117647058824, 0.6980392156862745, 1);
-  vec4 c4 = vec4(0.24313725490196078, 0.21176470588235294, 0.8862745098039215, 1);
+  // vec4 c0 = vec4(0.6941176470588235, 0.8392156862745098, 0.9725490196078431, 1);
+  // vec4 c1 = vec4(0.5215686274509804, 0.4117647058823529, 0.8784313725490196, 1);
+  // vec4 c2 = vec4(0.9254901960784314, 0.4745098039215686, 0.796078431372549, 1);
+  // vec4 c3 = vec4(0.9921568627450981, 0.9294117647058824, 0.6980392156862745, 1);
+  // vec4 c4 = vec4(0.24313725490196078, 0.21176470588235294, 0.8862745098039215, 1);
+
+  // vec4 c0 = vec4(0.329, 0.051, 0.431, 1);
+  // vec4 c1 = vec4(0.929, 0.259, 0.400, 1);
+  // vec4 c2 = vec4(1.000, 0.820, 0.247, 1);
+  // vec4 c3 = vec4(0.949, 0.984, 0.937, 1);
+  // vec4 c4 = vec4(0.122, 0.149, 0.106, 1);
+
+  vec4 c0 = vec4(0.008, 0.224, 0.290, 1);
+  vec4 c1 = vec4(0.016, 0.208, 0.400, 1);
+  vec4 c2 = vec4(0.318, 0.345, 0.733, 1);
+  vec4 c3 = vec4(0.949, 0.431, 0.976, 1);
+  vec4 c4 = vec4(0.922, 0.294, 0.596, 1);
 
   float step0 = 0.0;
   float step1 = 0.25;
@@ -144,15 +164,31 @@ float cubicOut(float t) {
   return f * f * f + 1.0;
 }
 
+float random (vec2 st) {
+    return fract(sin(dot(st.xy,
+                         vec2(12.9898,78.233)))*
+        43758.5453123);
+}
+
 void main( void ) {
   vec2 position = (gl_FragCoord.xy / resolution.xy) + offset;
+  float n1 = random(position + time);
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
-  position *= .3;
+  position *= 0.2;
 
   float n = (snoise(vec3(position, time)) + 1.0) / 2.0;
-  vec4 color = paletteColor(cubicOut(n), 30.0);
+  vec4 color = mix(paletteColor(n, 60.0), vec4(n1), 0.04);
+  // vec4 color = vec4(n1 / 10.0);
+
+  // if (mod(n * 300.0, 10.0) < 1.0) {
+  //   color = mix(vec4(0.0, 1.0, 0.6, 1.0), color, 0.2);
+  // }
+
+  // if (mod(n * 150.0, 10.0) < 0.5) {
+  //   color = mix(vec4(0.4, 0.0, 1.0, 1.0), color, 0.2);
+  // }
 
   gl_FragColor = color;
 }
