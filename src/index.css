@@ -1,5 +1,6 @@
 @font-face {
   font-family: 'work';
+  font-display: swap;
   src: url('black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
@@ -7,6 +8,7 @@
 
 @font-face {
   font-family: 'work';
+  font-display: swap;
   src: url('light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
@@ -52,7 +54,7 @@ html {
 }
 
 body {
-  font-family: 'work';
+  font-family: 'work', Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: #fff;
   background-color: #000;
