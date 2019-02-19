@@ -41,7 +41,8 @@ a {
   transition: color 0.2s, background 0.2s;
 }
 
-a:hover {
+a:hover,
+a:focus {
   color: var(--primary);
   background-position: 0 100%;
 }

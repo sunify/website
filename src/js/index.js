@@ -6,19 +6,7 @@ import screenFrag from './shaders/screenFragment.glsl';
 import vertexShader from './shaders/vertexShader.glsl';
 import surfaceVertexShader from './shaders/surfaceVertex.glsl';
 
-const RESOLUTION = PIXEL_RATIO;
-
 const canvas = document.getElementById('bg');
-
-// document.documentElement.style.setProperty('--primary', colors.primary);
-// document.documentElement.style.setProperty(
-//   '--primary-fade',
-//   `${colors.primary}AA`
-// );
-// document.documentElement.style.setProperty(
-//   '--secondary',
-//   lerp(colors.secondary, '#FFF', 0.6)
-// );
 
 // mostly copy-pasted from glslsandbox
 let gl;
