@@ -4,14 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@sunify/lerp-color": "^1.2.0",
-    "eases": "^1.0.8",
-    "hex-rgb": "^4.0.0",
-    "run-with-fps": "^1.0.4",
-    "simplex-noise": "^2.4.0",
-    "tooloud": "^2.0.4",
-    "v-for-vector": "^1.3.0",
-    "voronoi": "^1.0.0"
+    "inline-assets": "^1.4.2",
+    "run-with-fps": "^1.0.4"
   },
   "devDependencies": {
     "glslify-bundle": "^5.1.1",
@@ -22,6 +16,7 @@
   "scripts": {
     "test": "exit 0",
     "start": "parcel index.html --open",
-    "build": "rm -rf dist && parcel build index.html"
+    "build": "rm -rf dist && parcel build --public-url=. index.html && yarn inline",
+    "inline": "inline-assets --pattern=.css$ dist/index.html dist/index.html"
   }
 }

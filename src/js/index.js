@@ -273,7 +273,6 @@ function getScale() {
 
 function onWindowResize() {
   const scale = getScale();
-  console.log(window.innerWidth, window.innerHeight, scale);
   canvas.width = window.innerWidth * scale;
   canvas.height = window.innerHeight * scale;
   canvas.style.width = window.innerWidth + 'px';
