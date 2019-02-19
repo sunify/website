@@ -293,7 +293,7 @@ function render() {
   gl.useProgram(currentProgram);
   gl.uniform1f(
     currentProgram.uniformsCache['time'],
-    (parameters.time + parameters.timeOffset) / 50000
+    (parameters.time + parameters.timeOffset) / 60000
   );
   gl.uniform2f(
     currentProgram.uniformsCache['offset'],
