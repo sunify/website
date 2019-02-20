@@ -142,14 +142,8 @@ vec4 paletteColor(float n, float steps) {
   vec4 c0 = vec4(0.125, 0.102, 0.114, 1);
   vec4 c1 = vec4(0.388, 0.125, 0.933, 1);
   vec4 c2 = vec4(0.506, 0.459, 1.000, 1);
-  vec4 c3 = vec4(0.310, 0.800, 0.769, 1);
-  vec4 c4 = vec4(0.298, 0.161, 0.522, 1);
-
-  // vec4 c0 = vec4(0.039, 0.133, 0.224, 1);
-  // vec4 c1 = vec4(0.427, 0.925, 0.682, 1);
-  // vec4 c2 = vec4(0.373, 0.133, 0.616, 1);
-  // vec4 c3 = vec4(0.000, 0.941, 0.710, 1);
-  // vec4 c4 = vec4(0.196, 0.400, 0.600, 1);
+  vec4 c3 = vec4(0.949, 0.431, 0.976, 1);
+  vec4 c4 = vec4(0.922, 0.294, 0.596, 1);
 
   float step0 = 0.0;
   float step1 = 0.25;
@@ -184,17 +178,8 @@ void main( void ) {
   // scale — lower is closer
   position *= 0.3;
 
-  float n = (snoise(vec3(position, time)) + 1.0) / 2.0;
-  vec4 color = mix(paletteColor(n, 40.0), vec4(n1), 0.02);
-  // vec4 color = vec4(n1 / 10.0);
-
-  // if (mod(n * 300.0, 10.0) < 1.0) {
-  //   color = mix(vec4(0.0, 1.0, 0.6, 1.0), color, 0.2);
-  // }
-
-  // if (mod(n * 150.0, 10.0) < 0.5) {
-  //   color = mix(vec4(0.4, 0.0, 1.0, 1.0), color, 0.2);
-  // }
+  float n = (snoise(vec3(position, time + n1 / 100.0)) + 1.0) / 2.0;
+  vec4 color = mix(paletteColor(n, 30.0), vec4(n1), 0.02);
 
   gl_FragColor = color;
 }

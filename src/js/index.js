@@ -256,7 +256,11 @@ function getScale() {
     return 1;
   }
 
-  return 1;
+  if (PIXEL_RATIO === 1) {
+    return 1;
+  }
+
+  return PIXEL_RATIO * 0.8;
 }
 
 function onWindowResize() {
@@ -280,7 +284,7 @@ function render() {
   gl.useProgram(currentProgram);
   gl.uniform1f(
     currentProgram.uniformsCache['time'],
-    (parameters.time + parameters.timeOffset) / 60000
+    (parameters.time + parameters.timeOffset) / 20000
   );
   gl.uniform2f(
     currentProgram.uniformsCache['offset'],
