@@ -1,7 +1,7 @@
 import runWithFps from 'run-with-fps';
 import { PIXEL_RATIO } from './constants';
 
-import noiseShader from './shaders/noise.glsl';
+import noiseShader from './shaders/noise.js';
 import screenFrag from './shaders/screenFragment.glsl';
 import vertexShader from './shaders/vertexShader.glsl';
 import surfaceVertexShader from './shaders/surfaceVertex.glsl';

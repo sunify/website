@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "hex-rgb": "^4.0.0",
     "inline-assets": "^1.4.2",
     "run-with-fps": "^1.0.4"
   },

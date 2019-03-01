@@ -1,3 +1,34 @@
+import hexRgb from 'hex-rgb';
+
+const palettes = [
+  ['#d71259', '#8e2d56', '#208381', '#eca639', '#73d2de'],
+  ['#820263', '#d90368', '#53dd6c', '#2e294e', '#ffd400']
+];
+
+function shuffle(a) {
+  var j, x, i;
+  for (i = a.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    x = a[i];
+    a[i] = a[j];
+    a[j] = x;
+  }
+  return a;
+}
+
+const palette = shuffle(palettes[1]);
+
+const printFloat = n => (n % 1 ? String(n) : `${n}.0`);
+const colors = [...palettes[0]]
+  .map(c => hexRgb(c, { format: 'array' }))
+  .map(c =>
+    c
+      .slice(0, 3)
+      .map(n => n / 255)
+      .map(printFloat)
+  );
+
+export default `
 precision highp float;
 
 #extension GL_OES_standard_derivatives : enable
@@ -68,9 +99,9 @@ float snoise(vec3 v) {
 // Permutations
   i = mod289(i);
   vec4 p = permute( permute( permute(
-             i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
-           + i.y + vec4(0.0, i1.y, i2.y, 1.0 ))
-           + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+            i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+          + i.y + vec4(0.0, i1.y, i2.y, 1.0 ))
+          + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
 
 // Gradients: 7x7 points over a square, mapped onto an octahedron.
 // The ring size 17*17 = 289 is close to a multiple of 49 (49*6 = 294)
@@ -127,34 +158,26 @@ vec4 paletteColor(float n, float steps) {
     n = floor(n / stepSize) * stepSize;
   }
 
-  // vec4 c0 = vec4(0.6941176470588235, 0.8392156862745098, 0.9725490196078431, 1);
-  // vec4 c1 = vec4(0.5215686274509804, 0.4117647058823529, 0.8784313725490196, 1);
-  // vec4 c2 = vec4(0.9254901960784314, 0.4745098039215686, 0.796078431372549, 1);
-  // vec4 c3 = vec4(0.9921568627450981, 0.9294117647058824, 0.6980392156862745, 1);
-  // vec4 c4 = vec4(0.24313725490196078, 0.21176470588235294, 0.8862745098039215, 1);
+  ${colors
+    .map(([r, g, b], i) => `vec4 c${i} = vec4(${r}, ${g}, ${b}, 1);`)
+    .join('\n')}
 
-  // vec4 c0 = vec4(0.008, 0.224, 0.290, 1);
-  // vec4 c1 = vec4(0.016, 0.208, 0.400, 1);
-  // vec4 c2 = vec4(0.318, 0.345, 0.733, 1);
-  // vec4 c3 = vec4(0.949, 0.431, 0.976, 1);
-  // vec4 c4 = vec4(0.922, 0.294, 0.596, 1);
-
-  vec4 c0 = vec4(0.125, 0.102, 0.114, 1);
-  vec4 c1 = vec4(0.388, 0.125, 0.933, 1);
-  vec4 c2 = vec4(0.506, 0.459, 1.000, 1);
-  vec4 c3 = vec4(0.949, 0.431, 0.976, 1);
-  vec4 c4 = vec4(0.922, 0.294, 0.596, 1);
-
-  float step0 = 0.0;
-  float step1 = 0.25;
-  float step2 = 0.5;
-  float step3 = 0.75;
-  float step4 = 1.0;
+  ${colors
+    .map((_, i) => `float step${i} = ${printFloat(i / (colors.length - 1))};`)
+    .join('\n')}
 
   vec4 color = mix(c0, c1, smoothstep(step0, step1, n));
-  color = mix(color, c2, smoothstep(step1, step2, n));
-  color = mix(color, c3, smoothstep(step2, step3, n));
-  color = mix(color, c4, smoothstep(step3, step4, n));
+  ${colors
+    .slice(2)
+    .map(
+      (_, i) =>
+        `color = mix(color, c${i + 2}, smoothstep(step${i + 1}, step${i +
+          2}, n));`
+    )
+    .join('\n')}
+  //color = mix(color, c2, smoothstep(step1, step2, n));
+  //color = mix(color, c3, smoothstep(step2, step3, n));
+  //color = mix(color, c4, smoothstep(step3, step4, n));
 
   return color;
 }
@@ -164,9 +187,35 @@ float cubicOut(float t) {
   return f * f * f + 1.0;
 }
 
+float bounceOut(float t) {
+  float a = 4.0 / 11.0;
+  float b = 8.0 / 11.0;
+  float c = 9.0 / 10.0;
+
+  float ca = 4356.0 / 361.0;
+  float cb = 35442.0 / 1805.0;
+  float cc = 16061.0 / 1805.0;
+
+  float t2 = t * t;
+
+  return t < a
+    ? 7.5625 * t2
+    : t < b
+      ? 9.075 * t2 - 9.9 * t + 3.4
+      : t < c
+        ? ca * t2 - cb * t + cc
+        : 10.8 * t * t - 20.52 * t + 10.72;
+}
+
+float bounceInOut(float t) {
+  return t < 0.5
+    ? 0.5 * (1.0 - bounceOut(1.0 - t * 2.0))
+    : 0.5 * bounceOut(t * 2.0 - 1.0) + 0.5;
+}
+
 float random (vec2 st) {
     return fract(sin(dot(st.xy,
-                         vec2(12.9898,78.233)))*
+                        vec2(12.9898,78.233)))*
         43758.5453123);
 }
 
@@ -183,3 +232,4 @@ void main( void ) {
 
   gl_FragColor = color;
 }
+`;
