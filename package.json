@@ -17,7 +17,7 @@
   "scripts": {
     "test": "exit 0",
     "start": "parcel index.html --open",
-    "build": "rm -rf dist && parcel build --public-url=. index.html && yarn inline",
+    "build": "rm -rf dist && parcel build --public-url=. index.html && yarn inline && cp cv.pdf dist/cv.pdf",
     "inline": "inline-assets --pattern=.css$ dist/index.html dist/index.html"
   }
 }
