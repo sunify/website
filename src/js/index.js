@@ -1,4 +1,6 @@
 import runWithFps from 'run-with-fps';
+import tweeen from 'tweeen';
+import eases from 'eases';
 import { PIXEL_RATIO } from './constants';
 
 import noiseShader from './shaders/noise.js';
@@ -343,6 +345,37 @@ function render() {
   [frontTarget, backTarget] = [backTarget, frontTarget];
 }
 const stop = runWithFps(render, 20);
+
+let stopScroll;
+function scrollTo(y, { duration = 300, ...options } = {}) {
+  if (stopScroll) {
+    stopScroll();
+  }
+
+  stopScroll = tweeen(
+    window.scrollY,
+    y,
+    y => {
+      window.scrollTo(0, y);
+    },
+    {
+      easing: eases.cubicOut,
+      duration,
+      ...options
+    }
+  );
+}
+
+document.querySelectorAll('.js-goto').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const rect = target.getBoundingClientRect();
+      scrollTo(rect.top);
+    }
+  });
+});
 
 // Handle hot module replacement
 if (module.hot) {

@@ -1693,6 +1693,11 @@ duplexer2@~0.1.4:
   dependencies:
     readable-stream "^2.0.2"
 
+eases@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/eases/-/eases-1.0.8.tgz#f1f5069a6b6ed2ea510f9c6110398d63efe9aee6"
+  integrity sha1-8fUGmmtu0upRD5xhEDmNY+/pruY=
+
 editorconfig@^0.15.2:
   version "0.15.2"
   resolved "https://registry.yarnpkg.com/editorconfig/-/editorconfig-0.15.2.tgz#047be983abb9ab3c2eefe5199cb2b7c5689f0702"
@@ -4557,6 +4562,13 @@ trim-right@^1.0.1:
 tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
+
+tweeen@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/tweeen/-/tweeen-1.0.5.tgz#5308c07c03105e76a11583cad327b82a4f100960"
+  integrity sha512-HwSqlLsBTib3DIIrnm7klTPZKPYu+rLgWqI7MRPnXJ2c0IhbwJsKYOpZtBhUG2+//e30v/1D4sYxxVYc1kgH1g==
+  dependencies:
+    run-with-fps "^1.0.4"
 
 type-check@~0.3.2:
   version "0.3.2"

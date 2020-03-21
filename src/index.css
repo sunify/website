@@ -17,6 +17,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 ::selection {
@@ -126,6 +127,7 @@ body {
 }
 
 header {
+  position: relative;
   text-transform: uppercase;
   font-weight: 300;
 }
@@ -180,7 +182,7 @@ footer a .icon {
   z-index: 2;
 
   padding: 100px 20px;
-  min-height: 80vh;
+  min-height: 100vh;
 
   transition: opacity 0.3s, left 0s 0.3s;
   overflow-y: auto;
@@ -259,9 +261,10 @@ footer a .icon {
 
   footer a {
     background: 0;
+    font-size: 28px;
   }
 
-  footer a span {
+  footer a .icon + span {
     display: none;
   }
 
