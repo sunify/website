@@ -372,9 +372,20 @@ document.querySelectorAll('.js-goto').forEach(link => {
     if (target) {
       e.preventDefault();
       const rect = target.getBoundingClientRect();
-      scrollTo(rect.top);
+      scrollTo(rect.top, { duration: 800 });
     }
   });
+});
+
+const content = document.querySelector('.content');
+window.addEventListener('scroll', () => {
+  const opacity = eases.cubicIn(
+    Math.min(
+      1,
+      (window.scrollY - window.innerHeight / 2.5) / (window.innerHeight / 2.5)
+    )
+  );
+  content.style.opacity = 1 - opacity;
 });
 
 // Handle hot module replacement

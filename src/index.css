@@ -69,7 +69,7 @@ body {
   font-family: 'work', Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: #fff;
-  background-color: #000;
+  background-color: #822ed3;
   height: 100%;
 }
 
@@ -108,13 +108,14 @@ body {
   z-index: 1;
   min-height: 100%;
   width: 100%;
+  max-width: 2000px;
+  margin: 0 auto;
   box-sizing: border-box;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   transition: opacity 0.3s;
-  /* opacity: 0; */
 }
 
 .caption {
@@ -127,9 +128,13 @@ body {
 }
 
 header {
-  position: relative;
+  position: sticky;
+  position: -webkit-sticky;
   text-transform: uppercase;
   font-weight: 300;
+  top: 0;
+  left: 0;
+  padding-bottom: 80px;
 }
 
 h1 {
@@ -138,8 +143,8 @@ h1 {
 
   text-transform: uppercase;
   letter-spacing: 4px;
-  line-height: 0.8;
-  margin-bottom: 10px;
+  line-height: 0.9;
+  margin-bottom: 0.1em;
 
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-width: 3px;
@@ -215,6 +220,12 @@ footer a .icon {
 
   footer {
     font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 2400px) {
+  h1 {
+    font-size: 300px;
   }
 }
 
