@@ -1,25 +1,36 @@
 import hexRgb from 'hex-rgb';
 
+const crls = ['#67129b', '#832ed3', '#882be5', '#7329b5', '#530a93'];
 const palettes = [
   ['#d71259', '#8e2d56', '#208381', '#eca639', '#73d2de'],
+  [...crls],
+  ['#832ed3', '#FC0', '#FFC', '#FC0', '#7329b5'],
   ['#820263', '#d90368', '#53dd6c', '#2e294e', '#ffd400']
 ];
 
-function shuffle(a) {
-  var j, x, i;
-  for (i = a.length - 1; i > 0; i--) {
-    j = Math.floor(Math.random() * (i + 1));
-    x = a[i];
-    a[i] = a[j];
-    a[j] = x;
-  }
-  return a;
-}
+// function shuffle(a) {
+//   var j, x, i;
+//   for (i = a.length - 1; i > 0; i--) {
+//     j = Math.floor(Math.random() * (i + 1));
+//     x = a[i];
+//     a[i] = a[j];
+//     a[j] = x;
+//   }
+//   return a;
+// }
 
-const palette = shuffle(palettes[1]);
+// const palette = shuffle(palettes[1]);
 
 const printFloat = n => (n % 1 ? String(n) : `${n}.0`);
-const colors = [...palettes[0]]
+const colors = [...palettes[1]]
+  .map(c => hexRgb(c, { format: 'array' }))
+  .map(c =>
+    c
+      .slice(0, 3)
+      .map(n => n / 255)
+      .map(printFloat)
+  );
+const colors2 = [...palettes[2]]
   .map(c => hexRgb(c, { format: 'array' }))
   .map(c =>
     c
@@ -34,6 +45,7 @@ precision highp float;
 #extension GL_OES_standard_derivatives : enable
 
 uniform float time;
+uniform float pixelSteps;
 uniform vec2 offset;
 uniform vec2 resolution;
 
@@ -182,6 +194,36 @@ vec4 paletteColor(float n, float steps) {
   return color;
 }
 
+vec4 paletteColor2(float n, float steps) {
+  if (steps > 0.0) {
+    float stepSize = 1.0 / steps;
+    n = floor(n / stepSize) * stepSize;
+  }
+
+  ${colors2
+    .map(([r, g, b], i) => `vec4 c${i} = vec4(${r}, ${g}, ${b}, 1);`)
+    .join('\n')}
+
+  ${colors2
+    .map((_, i) => `float step${i} = ${printFloat(i / (colors2.length - 1))};`)
+    .join('\n')}
+
+  vec4 color = mix(c0, c1, smoothstep(step0, step1, n));
+  ${colors2
+    .slice(2)
+    .map(
+      (_, i) =>
+        `color = mix(color, c${i + 2}, smoothstep(step${i + 1}, step${i +
+          2}, n));`
+    )
+    .join('\n')}
+  //color = mix(color, c2, smoothstep(step1, step2, n));
+  //color = mix(color, c3, smoothstep(step2, step3, n));
+  //color = mix(color, c4, smoothstep(step3, step4, n));
+
+  return color;
+}
+
 float cubicOut(float t) {
   float f = t - 1.0;
   return f * f * f + 1.0;
@@ -222,13 +264,29 @@ float random (vec2 st) {
 void main( void ) {
   vec2 position = (gl_FragCoord.xy / resolution.xy) + offset;
   float n1 = random(position + time);
+  n1 = 1.0;
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
-  position *= 0.3;
+  position *= 0.4;
 
+  // pixelize
+  // float stepSize = 1.0 / pixelSteps;
+  // position.x = floor(position.x / stepSize) * stepSize;
+  // position.y = floor(position.y / stepSize) * stepSize;
+
+  float palleteSteps = 1000.0;
   float n = (snoise(vec3(position, time + n1 / 100.0)) + 1.0) / 2.0;
-  vec4 color = mix(paletteColor(n, 30.0), vec4(n1), 0.02);
+  vec4 color = mix(paletteColor(n, palleteSteps), vec4(n1), 0.02);
+
+  if (inRange(n, 0.3, 0.005)) {
+    n = (n - 0.3) / 0.005;
+    color = mix(paletteColor2(n, palleteSteps), vec4(n1), 0.02);
+  }
+  if (inRange(n, 0.7, 0.005)) {
+    n = (n - 0.7) / 0.005;
+    color = mix(paletteColor2(n, palleteSteps), vec4(n1), 0.02);
+  }
 
   gl_FragColor = color;
 }

@@ -47,7 +47,7 @@ a::before {
 }
 
 a:hover {
-  color: #6221e9;
+  color: #ff0;
 }
 
 a:focus::before {
@@ -57,7 +57,7 @@ a:focus::before {
 
 a:hover::before {
   height: 100%;
-  opacity: 0.7;
+  opacity: 0.3;
 }
 
 html {
@@ -130,19 +130,31 @@ header {
   font-weight: 300;
 }
 
+header p {
+  /* color: #FE0; */
+}
+
 h1 {
   font-weight: 900;
-  font-size: 150px;
+  font-size: 13vw;
 
   text-transform: uppercase;
   letter-spacing: 4px;
   line-height: 0.8;
   margin-bottom: 10px;
+
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: currentColor;
 }
 
 h2 {
   font-size: 100px;
   text-transform: uppercase;
+
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: currentColor;
 }
 
 footer {

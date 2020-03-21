@@ -21,7 +21,8 @@ const parameters = {
   offsetX: (0.5 - Math.random()) * 10,
   offsetY: (0.5 - Math.random()) * 10,
   screenWidth: 0,
-  screenHeight: 0
+  screenHeight: 0,
+  pixelSteps: 12
 };
 const surface = {
   centerX: 0,
@@ -127,6 +128,7 @@ function compile() {
   currentProgram = program;
 
   // Cache uniforms
+  cacheUniformLocation(program, 'pixelSteps');
   cacheUniformLocation(program, 'time');
   cacheUniformLocation(program, 'offset');
   cacheUniformLocation(program, 'resolution');
@@ -280,11 +282,18 @@ function onWindowResize() {
 function render() {
   if (!currentProgram) return;
   parameters.time = Date.now() - parameters.startTime;
+  parameters.pixelSteps = Math.floor(
+    Math.max(10, window.innerHeight - window.scrollY)
+  );
   // Set uniforms for custom shader
   gl.useProgram(currentProgram);
   gl.uniform1f(
     currentProgram.uniformsCache['time'],
     (parameters.time + parameters.timeOffset) / 20000
+  );
+  gl.uniform1f(
+    currentProgram.uniformsCache['pixelSteps'],
+    parameters.pixelSteps
   );
   gl.uniform2f(
     currentProgram.uniformsCache['offset'],
