@@ -23,8 +23,7 @@ const parameters = {
   offsetX: (0.5 - Math.random()) * 10,
   offsetY: (0.5 - Math.random()) * 10,
   screenWidth: 0,
-  screenHeight: 0,
-  pixelSteps: 12
+  screenHeight: 0
 };
 const surface = {
   centerX: 0,
@@ -291,7 +290,7 @@ function render() {
   gl.useProgram(currentProgram);
   gl.uniform1f(
     currentProgram.uniformsCache['time'],
-    (parameters.time + parameters.timeOffset) / 20000
+    (parameters.time + parameters.timeOffset) / 30000
   );
   gl.uniform1f(
     currentProgram.uniformsCache['pixelSteps'],
