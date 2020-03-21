@@ -268,12 +268,15 @@ function getScale() {
 
 function onWindowResize() {
   const scale = getScale();
-  canvas.width = window.innerWidth * scale;
-  canvas.height = window.innerHeight * scale;
-  canvas.style.width = window.innerWidth + 'px';
-  canvas.style.height = window.innerHeight + 'px';
-  parameters.screenWidth = canvas.width;
-  parameters.screenHeight = canvas.height;
+  const bgWrap = document.querySelector('.bg-wrapper');
+  const bgRect = bgWrap.getBoundingClientRect();
+  canvas.width = bgRect.width * scale;
+  canvas.height = bgRect.height * scale;
+
+  if (!parameters.screenWidth) {
+    parameters.screenWidth = canvas.width;
+    parameters.screenHeight = canvas.height;
+  }
   computeSurfaceCorners();
   if (gl) {
     gl.viewport(0, 0, canvas.width, canvas.height);
