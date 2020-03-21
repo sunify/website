@@ -273,7 +273,8 @@ function onWindowResize() {
   canvas.width = bgRect.width * scale;
   canvas.height = bgRect.height * scale;
 
-  if (!parameters.screenWidth) {
+  if (Math.abs(canvas.width - parameters.screenWidth) > 100) {
+    // ориентация или большой ресайз
     parameters.screenWidth = canvas.width;
     parameters.screenHeight = canvas.height;
   }
@@ -293,7 +294,7 @@ function render() {
   gl.useProgram(currentProgram);
   gl.uniform1f(
     currentProgram.uniformsCache['time'],
-    (parameters.time + parameters.timeOffset) / 30000
+    (parameters.time + parameters.timeOffset) / 60000
   );
   gl.uniform1f(
     currentProgram.uniformsCache['pixelSteps'],

@@ -231,7 +231,7 @@ footer a .icon {
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 740px) {
   footer {
     font-size: 14px;
   }
@@ -285,5 +285,11 @@ footer a .icon {
 @media screen and (max-width: 360px) {
   header {
     font-size: 18px;
+  }
+}
+
+@media screen and (min-aspect-ratio: 2/1) {
+  h1 {
+    font-size: 11vw;
   }
 }

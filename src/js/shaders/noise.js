@@ -1,10 +1,10 @@
 import hexRgb from 'hex-rgb';
 
-const crls = ['#67129b', '#832ed3', '#882be5', '#7329b5', '#530a93'];
+const crls = ['#832ed3', '#832ed3'];
 const palettes = [
   ['#d71259', '#8e2d56', '#208381', '#eca639', '#73d2de'],
   [...crls],
-  ['#832ed3', '#FC0', '#Ba0', '#FFC', '#FC0', '#7329b5'],
+  ['#832ed3', '#FC0', '#Ba0', '#FFC', '#FC0', '#832ed3'],
   ['#820263', '#d90368', '#53dd6c', '#2e294e', '#ffd400']
 ];
 
@@ -268,14 +268,14 @@ void main( void ) {
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
-  position *= 0.35;
+  position *= 0.3;
 
   // pixelize
   // float stepSize = 1.0 / pixelSteps;
   // position.x = floor(position.x / stepSize) * stepSize;
   // position.y = floor(position.y / stepSize) * stepSize;
 
-  float palleteSteps = 1000.0;
+  float palleteSteps = 100000.0;
   float n = (snoise(vec3(position, time + n1 / 100.0)) + 1.0) / 2.0;
   vec4 color = mix(paletteColor(n, palleteSteps), vec4(n1), 0.02);
 
