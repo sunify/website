@@ -623,6 +623,22 @@
     "@parcel/utils" "^1.11.0"
     physical-cpu-count "^2.0.0"
 
+"@sunify/lerp-color@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@sunify/lerp-color/-/lerp-color-2.0.0.tgz#10e76aea6b661b2044cedc7593f3fe61f64ce10d"
+  integrity sha512-W73dXk4EaqMQ7mYTg7TezZgACoCbsfmBTxTUpwfPGOz59L351gULbn2mhjIVbi5Eg9fr+HjMVcg/bxhOnrRldw==
+  dependencies:
+    "@types/hex-rgb" "^3.0.0"
+    "@types/rgb-hex" "^2.1.0"
+    hex-rgb "^3.0.0"
+    lerp-array "^1.1.1"
+    rgb-hex "^2.1.0"
+
+"@types/hex-rgb@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/hex-rgb/-/hex-rgb-3.0.0.tgz#cdba67923a9e8753062bf44865a4f94aa987a4bf"
+  integrity sha512-HrlzEM9VEzui+B9Jx+Fxb5IEkW6p2SIzUOpbvRtoEez1Yi80y/ZomfEFjd6r9OO4X3pZtMygv3hrU8BIbUjUBQ==
+
 "@types/node@^10.11.7":
   version "10.12.19"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.19.tgz#ca1018c26be01f07e66ac7fefbeb6407e4490c61"
@@ -630,6 +646,11 @@
 "@types/q@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.1.tgz#48fd98c1561fe718b61733daed46ff115b496e18"
+
+"@types/rgb-hex@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/rgb-hex/-/rgb-hex-2.1.0.tgz#6b2190e705a909f7aa3437a0284b568ed3d8c186"
+  integrity sha512-GeH/9GRQvCGUW6HdZ/Mv65w7zgtcNpMlbKXLrrcK6f1WDIsE2bxRtW9edKumaRjoMjXkb0XsTbgYROnGl8ijvw==
 
 "@types/semver@^5.5.0":
   version "5.5.0"
@@ -2202,6 +2223,11 @@ hex-color-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
 
+hex-rgb@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/hex-rgb/-/hex-rgb-3.0.0.tgz#bdff98ce1c18daec8ed87797fe13b02831a9515a"
+  integrity sha512-iWOUTZu7KQGhErV8JfTQDH5F/M2D0HVd0sexS4Grg4e4RYAiN3c4jfpPqKgfedqeebKcNZBl2z3zlgCtFjpFJQ==
+
 hex-rgb@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/hex-rgb/-/hex-rgb-4.0.0.tgz#9df2123d4c37fe2600bbba0047fed7c53dffab90"
@@ -2644,6 +2670,18 @@ lcid@^1.0.0:
   resolved "https://registry.yarnpkg.com/lcid/-/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"
   dependencies:
     invert-kv "^1.0.0"
+
+lerp-array@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/lerp-array/-/lerp-array-1.1.1.tgz#49ec1794a6db28546fcd4cd61e2192f2ef168c68"
+  integrity sha1-SewXlKbbKFRvzUzWHiGS8u8WjGg=
+  dependencies:
+    lerp "^1.0.0"
+
+lerp@^1.0.0:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/lerp/-/lerp-1.0.3.tgz#a18c8968f917896de15ccfcc28d55a6b731e776e"
+  integrity sha1-oYyJaPkXiW3hXM/MKNVaa3Med24=
 
 levn@~0.3.0:
   version "0.3.0"
@@ -4067,6 +4105,11 @@ restore-cursor@^2.0.0:
 ret@~0.1.10:
   version "0.1.15"
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
+
+rgb-hex@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/rgb-hex/-/rgb-hex-2.1.0.tgz#c773c5fe2268a25578d92539a82a7a5ce53beda6"
+  integrity sha1-x3PF/iJoolV42SU5qCp6XOU77aY=
 
 rgb-regex@^1.0.1:
   version "1.0.1"
