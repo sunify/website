@@ -279,12 +279,12 @@ void main( void ) {
   float n = (snoise(vec3(position, time + n1 / 100.0)) + 1.0) / 2.0;
   vec4 color = mix(paletteColor(n, palleteSteps), vec4(n1), 0.02);
 
-  if (inRange(n, 0.3, 0.007)) {
-    n = (n - 0.3) / 0.007;
+  if (inRange(n, 0.3, 0.15)) {
+    n = (n - 0.3) / 0.15;
     color = mix(paletteColor2(n, palleteSteps), vec4(n1), 0.02);
   }
-  if (inRange(n, 0.7, 0.007)) {
-    n = (n - 0.7) / 0.007;
+  if (inRange(n, 0.7, 0.15)) {
+    n = (n - 0.7) / 0.15;
     color = mix(paletteColor2(bounceInOut(n), palleteSteps), vec4(n1), 0.02);
   }
 
