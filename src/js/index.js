@@ -344,7 +344,7 @@ function render() {
   // Swap buffers
   [frontTarget, backTarget] = [backTarget, frontTarget];
 }
-const stop = runWithFps(render, 20);
+const stop = runWithFps(render, 40);
 
 let stopScroll;
 function scrollTo(y, { duration = 300, ...options } = {}) {

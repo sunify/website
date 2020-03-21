@@ -4,7 +4,7 @@ const crls = ['#67129b', '#832ed3', '#882be5', '#7329b5', '#530a93'];
 const palettes = [
   ['#d71259', '#8e2d56', '#208381', '#eca639', '#73d2de'],
   [...crls],
-  ['#832ed3', '#FC0', '#FFC', '#FC0', '#7329b5'],
+  ['#832ed3', '#FC0', '#Ba0', '#FFC', '#FC0', '#7329b5'],
   ['#820263', '#d90368', '#53dd6c', '#2e294e', '#ffd400']
 ];
 
@@ -268,7 +268,7 @@ void main( void ) {
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
-  position *= 0.4;
+  position *= 0.35;
 
   // pixelize
   // float stepSize = 1.0 / pixelSteps;
