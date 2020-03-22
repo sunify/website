@@ -304,7 +304,7 @@ void main( void ) {
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
-  position *= 0.3;
+  position *= 0.25;
 
   // pixelize
   // float stepSize = 1.0 / pixelSteps;
@@ -317,7 +317,7 @@ void main( void ) {
 
   if (inRange(n, 0.3, 0.15)) {
     n = (n - 0.3) / 0.15;
-    color = mix(paletteColor2(n, palleteSteps), vec4(n1), 0.02);
+    color = mix(paletteColor2(bounceInOut(n), palleteSteps), vec4(n1), 0.02);
   }
   if (inRange(n, 0.7, 0.15)) {
     n = (n - 0.7) / 0.15;
