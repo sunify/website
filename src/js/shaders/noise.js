@@ -299,8 +299,8 @@ float random (vec2 st) {
 
 void main( void ) {
   vec2 position = (gl_FragCoord.xy / resolution.xy) + offset;
-  float n1 = random(position + time);
-  n1 = 1.0;
+  float n1 = random(position);
+  n1 /= 4000.0;
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
@@ -312,7 +312,7 @@ void main( void ) {
   // position.y = floor(position.y / stepSize) * stepSize;
 
   float palleteSteps = 100000.0;
-  float n = (snoise(vec3(position, time + n1 / 100.0)) + 1.0) / 2.0;
+  float n = (snoise(vec3(position, time + n1)) + 1.0) / 1.0;
   vec4 color = mix(paletteColor(n, palleteSteps), vec4(n1), 0.02);
 
   if (inRange(n, 0.3, 0.15)) {
