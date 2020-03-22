@@ -304,7 +304,7 @@ void main( void ) {
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
-  position *= 0.25;
+  position *= 0.35;
 
   // pixelize
   // float stepSize = 1.0 / pixelSteps;
