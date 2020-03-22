@@ -294,7 +294,7 @@ function render() {
   gl.useProgram(currentProgram);
   gl.uniform1f(
     currentProgram.uniformsCache['time'],
-    (parameters.time + parameters.timeOffset) / 200000
+    (parameters.time + parameters.timeOffset) / 100000
   );
   gl.uniform1f(
     currentProgram.uniformsCache['pixelSteps'],

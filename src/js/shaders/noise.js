@@ -32,7 +32,7 @@ const colors = [...violetPalette]
       .map(n => n / 255)
       .map(printFloat)
   );
-const colors2 = [violetLerp(0.3), ...goldPalette, violetLerp(0.45)]
+const colors2 = [violetLerp(0.3), ...goldPalette, violetLerp(0.5)]
   .map(c => hexRgb(c, { format: 'array' }))
   .map(c =>
     c
@@ -40,7 +40,7 @@ const colors2 = [violetLerp(0.3), ...goldPalette, violetLerp(0.45)]
       .map(n => n / 255)
       .map(printFloat)
   );
-const colors3 = [violetLerp(0.7), ...goldPalette, violetLerp(0.85)]
+const colors3 = [violetLerp(0.7), ...goldPalette, violetLerp(0.9)]
   .map(c => hexRgb(c, { format: 'array' }))
   .map(c =>
     c
@@ -302,7 +302,7 @@ void main( void ) {
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
-  position *= 0.35;
+  position *= 0.45;
 
   float palleteSteps = 100000.0;
   float n = snoise(vec3(position, time));
@@ -310,12 +310,12 @@ void main( void ) {
   n1 /= 30.0;
   vec4 color = mix(paletteColor(n, palleteSteps), vec4(n1), 0.02);
 
-  if (inRange(n, 0.3, 0.15)) {
-    n = (n - 0.3) / 0.15;
+  if (inRange(n, 0.3, 0.2)) {
+    n = (n - 0.3) / 0.2;
     color = mix(paletteColor2(bounceInOut(n), palleteSteps), vec4(n1), 0.02);
   }
-  if (inRange(n, 0.7, 0.15)) {
-    n = (n - 0.7) / 0.15;
+  if (inRange(n, 0.7, 0.2)) {
+    n = (n - 0.7) / 0.2;
     color = mix(paletteColor3(bounceInOut(n), palleteSteps), vec4(n1), 0.02);
   }
 
