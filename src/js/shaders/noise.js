@@ -299,20 +299,15 @@ float random (vec2 st) {
 
 void main( void ) {
   vec2 position = (gl_FragCoord.xy / resolution.xy) + offset;
-  float n1 = random(position);
-  n1 /= 4000.0;
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
   position *= 0.35;
 
-  // pixelize
-  // float stepSize = 1.0 / pixelSteps;
-  // position.x = floor(position.x / stepSize) * stepSize;
-  // position.y = floor(position.y / stepSize) * stepSize;
-
   float palleteSteps = 100000.0;
-  float n = (snoise(vec3(position, time + n1)) + 1.0) / 1.0;
+  float n = snoise(vec3(position, time));
+  float n1 = random(position + time / 30000.0);
+  n1 /= 30.0;
   vec4 color = mix(paletteColor(n, palleteSteps), vec4(n1), 0.02);
 
   if (inRange(n, 0.3, 0.15)) {
@@ -323,6 +318,8 @@ void main( void ) {
     n = (n - 0.7) / 0.15;
     color = mix(paletteColor3(bounceInOut(n), palleteSteps), vec4(n1), 0.02);
   }
+
+  color += n1;
 
   gl_FragColor = color;
 }

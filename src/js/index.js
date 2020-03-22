@@ -294,7 +294,7 @@ function render() {
   gl.useProgram(currentProgram);
   gl.uniform1f(
     currentProgram.uniformsCache['time'],
-    (parameters.time + parameters.timeOffset) / 60000
+    (parameters.time + parameters.timeOffset) / 200000
   );
   gl.uniform1f(
     currentProgram.uniformsCache['pixelSteps'],
@@ -347,7 +347,7 @@ function render() {
   // Swap buffers
   [frontTarget, backTarget] = [backTarget, frontTarget];
 }
-const stop = runWithFps(render, 40);
+const stop = runWithFps(render, 30);
 
 let stopScroll;
 function scrollTo(y, { duration = 300, ...options } = {}) {
