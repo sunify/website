@@ -306,8 +306,8 @@ void main( void ) {
 
   float palleteSteps = 100000.0;
   float n = snoise(vec3(position, time));
-  float n1 = random(position + time / 30000.0);
-  n1 /= 30.0;
+  float n1 = random(position + time / 10000.0);
+  n1 /= 35.0;
   vec4 color = mix(paletteColor(n, palleteSteps), vec4(n1), 0.02);
 
   if (inRange(n, 0.3, 0.2)) {
