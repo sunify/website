@@ -32,7 +32,7 @@ const colors = [...violetPalette]
       .map(n => n / 255)
       .map(printFloat)
   );
-const colors2 = [violetLerp(0.3), ...goldPalette, violetLerp(0.5)]
+const colors2 = [violetLerp(0.1), ...goldPalette, violetLerp(0.3)]
   .map(c => hexRgb(c, { format: 'array' }))
   .map(c =>
     c
@@ -310,8 +310,8 @@ void main( void ) {
   n1 /= 35.0;
   vec4 color = mix(paletteColor(n, palleteSteps), vec4(n1), 0.02);
 
-  if (inRange(n, 0.3, 0.2)) {
-    n = (n - 0.3) / 0.2;
+  if (inRange(n, 0.1, 0.2)) {
+    n = (n - 0.1) / 0.2;
     color = mix(paletteColor2(bounceInOut(n), palleteSteps), vec4(n1), 0.02);
   }
   if (inRange(n, 0.7, 0.2)) {
