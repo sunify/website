@@ -1,14 +1,10 @@
 import hexRgb from 'hex-rgb';
 import lerpColor from '@sunify/lerp-color';
 
-const violetPalette = shuffle(['#832ed3', '#6F2ADD', '#6D0CCE', '#632A7F']);
+const violetPalette = shuffle(['#6024A5', '#5819A0', '#6718A0']);
 const violetLerp = lerpColor(violetPalette);
-const goldPalette = ['#FC0', '#Ba0', '#FFC', '#FC0'];
-
-// const palettes = [
-//   ['#d71259', '#8e2d56', '#208381', '#eca639', '#73d2de'],
-//   ['#820263', '#d90368', '#53dd6c', '#2e294e', '#ffd400']
-// ];
+const goldPalette = ['#FE2', '#Ba0', '#FFC', '#FD0'];
+const goldPalette2 = ['#FE2', '#Ba0', '#FFE', '#FD0'];
 
 function shuffle(a) {
   var j, x, i;
@@ -32,7 +28,7 @@ const colors = [...violetPalette]
       .map(n => n / 255)
       .map(printFloat)
   );
-const colors2 = [violetLerp(0.1), ...goldPalette, violetLerp(0.3)]
+const colors2 = [violetLerp(0.1), ...goldPalette, violetLerp(0.25)]
   .map(c => hexRgb(c, { format: 'array' }))
   .map(c =>
     c
@@ -40,7 +36,7 @@ const colors2 = [violetLerp(0.1), ...goldPalette, violetLerp(0.3)]
       .map(n => n / 255)
       .map(printFloat)
   );
-const colors3 = [violetLerp(0.7), ...goldPalette, violetLerp(0.9)]
+const colors3 = [violetLerp(0.5), ...goldPalette2, violetLerp(0.6)]
   .map(c => hexRgb(c, { format: 'array' }))
   .map(c =>
     c
@@ -169,7 +165,6 @@ float cnoise(vec3 P){
   return 2.2 * n_xyz;
 }
 
-
 bool inRange(float n, float base, float width) {
   return n > base && (n < base + width);
 }
@@ -197,10 +192,6 @@ vec4 paletteColor(float n, float steps) {
           2}, n));`
     )
     .join('\n')}
-  //color = mix(color, c2, smoothstep(step1, step2, n));
-  //color = mix(color, c3, smoothstep(step2, step3, n));
-  //color = mix(color, c4, smoothstep(step3, step4, n));
-
   return color;
 }
 
@@ -227,10 +218,6 @@ vec4 paletteColor2(float n, float steps) {
           2}, n));`
     )
     .join('\n')}
-  //color = mix(color, c2, smoothstep(step1, step2, n));
-  //color = mix(color, c3, smoothstep(step2, step3, n));
-  //color = mix(color, c4, smoothstep(step3, step4, n));
-
   return color;
 }
 
@@ -258,11 +245,6 @@ vec4 paletteColor3(float n, float steps) {
     )
     .join('\n')}
   return color;
-}
-
-float cubicOut(float t) {
-  float f = t - 1.0;
-  return f * f * f + 1.0;
 }
 
 float bounceOut(float t) {
@@ -307,18 +289,18 @@ void main( void ) {
   float palleteSteps = 100000.0;
   float n = cnoise(vec3(position, time));
   float n1 = random(position + time / 10000.0);
-  n1 /= 35.0;
-  vec4 color = mix(paletteColor(n, palleteSteps), vec4(n1), 0.02);
+  n1 /= 25.0;
+  vec4 color = paletteColor(n, palleteSteps);
 
-  if (inRange(n, 0.1, 0.2)) {
-    n = (n - 0.1) / 0.2;
-    color = mix(paletteColor2(bounceInOut(n), palleteSteps), vec4(n1), 0.02);
+  if (inRange(n, 0.1, 0.15)) {
+    color = paletteColor2(bounceInOut((n - 0.1) / 0.15), palleteSteps);
   }
-  if (inRange(n, 0.7, 0.2)) {
-    n = (n - 0.7) / 0.2;
-    color = mix(paletteColor3(bounceInOut(n), palleteSteps), vec4(n1), 0.02);
+  if (inRange(n, 0.2, 0.05)) {
+    color = paletteColor2(bounceInOut((n - 0.2) / 0.05), palleteSteps);
   }
-
+  if (inRange(n, 0.5, 0.1)) {
+    color = paletteColor3(bounceInOut((n - 0.5) / 0.1), palleteSteps);
+  }
   color += n1;
 
   gl_FragColor = color;
