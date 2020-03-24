@@ -284,7 +284,7 @@ void main( void ) {
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
-  position *= 0.75;
+  position *= 0.35;
 
   float palleteSteps = 100000.0;
   float n = cnoise(vec3(position, time));

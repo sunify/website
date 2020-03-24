@@ -275,6 +275,8 @@ function onWindowResize() {
 
   if (Math.abs(canvas.width - parameters.screenWidth) > 100) {
     // ориентация или большой ресайз
+    // canvas.width = 6144;
+    // canvas.height = 3240;
     parameters.screenWidth = canvas.width;
     parameters.screenHeight = canvas.height;
   }
