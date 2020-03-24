@@ -3,8 +3,8 @@ import lerpColor from '@sunify/lerp-color';
 
 const violetPalette = shuffle(['#6024A5', '#5819A0', '#6718A0']);
 const violetLerp = lerpColor(violetPalette);
-const goldPalette = ['#FE2', '#Ba0', '#FFC', '#FD0'];
-const goldPalette2 = ['#FE2', '#Ba0', '#FFE', '#FD0'];
+const goldPalette = ['#FC0', '#Ba0', '#FFC', '#FD0'];
+const goldPalette2 = ['#FC0', '#Ba0', '#FFE', '#FD0'];
 
 function shuffle(a) {
   var j, x, i;

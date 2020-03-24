@@ -391,6 +391,23 @@ window.addEventListener('scroll', () => {
   content.style.opacity = 1 - opacity;
 });
 
+const downloadLink = document.createElement('a');
+document.body.appendChild(downloadLink);
+downloadLink.style = 'display: none';
+function downloadCanvas(fn) {
+  canvas.toBlob(blob => {
+    const url = URL.createObjectURL(blob);
+    downloadLink.href = url;
+    downloadLink.download = `${fn}.png`;
+    downloadLink.click();
+    URL.revokeObjectURL(url);
+  }, 'image/png');
+}
+
+document.querySelector('.download').addEventListener('click', () => {
+  downloadCanvas(`sunify-gold-${Date.now()}`);
+});
+
 // Handle hot module replacement
 if (module.hot) {
   module.hot.dispose(() => {

@@ -205,6 +205,29 @@ footer a .icon {
   margin-bottom: 5px;
 }
 
+.download {
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  top: 0;
+  appearance: none;
+  background: 0;
+  border: 0;
+  color: #fff;
+  font: inherit;
+  line-height: 1;
+  font-size: 20px;
+  height: 40px;
+  padding: 0 20px;
+  opacity: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  outline: none;
+}
+
+.download:hover {
+  opacity: 1;
+}
+
 @media screen and (max-width: 650px) {
   header {
     font-size: 20px;
