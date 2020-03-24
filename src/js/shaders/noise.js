@@ -280,7 +280,7 @@ float random (vec2 st) {
 }
 
 void main( void ) {
-  vec2 position = (gl_FragCoord.xy / resolution.xy) + offset;
+  vec2 position = (gl_FragCoord.xy / resolution.xy);
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer

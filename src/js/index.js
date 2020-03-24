@@ -18,7 +18,7 @@ let vertexPosition;
 let screenVertexPosition;
 const parameters = {
   startTime: Date.now(),
-  timeOffset: Math.random() * 1000,
+  timeOffset: Math.random() * 10000000,
   time: 0,
   offsetX: (0.5 - Math.random()) * 10,
   offsetY: (0.5 - Math.random()) * 10,
