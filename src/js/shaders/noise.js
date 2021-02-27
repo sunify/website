@@ -1,10 +1,10 @@
 import hexRgb from 'hex-rgb';
 import lerpColor from '@sunify/lerp-color';
 
-const violetPalette = shuffle(['#6024A5', '#5819A0', '#6718A0']);
+const violetPalette = shuffle(['#241d48', '#301a6d']);
 const violetLerp = lerpColor(violetPalette);
-const goldPalette = ['#FC0', '#Ba0', '#FFC', '#FD0'];
-const goldPalette2 = ['#FC0', '#Ba0', '#FFE', '#FD0'];
+const goldPalette = ['#f9066c', '#1ba0c3'];
+const goldPalette2 = ['#f9066c', '#1ba0c3'];
 
 function shuffle(a) {
   var j, x, i;
@@ -19,29 +19,29 @@ function shuffle(a) {
 
 // const palette = shuffle(palettes[1]);
 
-const printFloat = n => (n % 1 ? String(n) : `${n}.0`);
+const printFloat = (n) => (n % 1 ? String(n) : `${n}.0`);
 const colors = [...violetPalette]
-  .map(c => hexRgb(c, { format: 'array' }))
-  .map(c =>
+  .map((c) => hexRgb(c, { format: 'array' }))
+  .map((c) =>
     c
       .slice(0, 3)
-      .map(n => n / 255)
+      .map((n) => n / 255)
       .map(printFloat)
   );
 const colors2 = [violetLerp(0.1), ...goldPalette, violetLerp(0.25)]
-  .map(c => hexRgb(c, { format: 'array' }))
-  .map(c =>
+  .map((c) => hexRgb(c, { format: 'array' }))
+  .map((c) =>
     c
       .slice(0, 3)
-      .map(n => n / 255)
+      .map((n) => n / 255)
       .map(printFloat)
   );
 const colors3 = [violetLerp(0.5), ...goldPalette2, violetLerp(0.6)]
-  .map(c => hexRgb(c, { format: 'array' }))
-  .map(c =>
+  .map((c) => hexRgb(c, { format: 'array' }))
+  .map((c) =>
     c
       .slice(0, 3)
-      .map(n => n / 255)
+      .map((n) => n / 255)
       .map(printFloat)
   );
 
@@ -188,8 +188,9 @@ vec4 paletteColor(float n, float steps) {
     .slice(2)
     .map(
       (_, i) =>
-        `color = mix(color, c${i + 2}, smoothstep(step${i + 1}, step${i +
-          2}, n));`
+        `color = mix(color, c${i + 2}, smoothstep(step${i + 1}, step${
+          i + 2
+        }, n));`
     )
     .join('\n')}
   return color;
@@ -214,8 +215,9 @@ vec4 paletteColor2(float n, float steps) {
     .slice(2)
     .map(
       (_, i) =>
-        `color = mix(color, c${i + 2}, smoothstep(step${i + 1}, step${i +
-          2}, n));`
+        `color = mix(color, c${i + 2}, smoothstep(step${i + 1}, step${
+          i + 2
+        }, n));`
     )
     .join('\n')}
   return color;
@@ -240,8 +242,9 @@ vec4 paletteColor3(float n, float steps) {
     .slice(2)
     .map(
       (_, i) =>
-        `color = mix(color, c${i + 2}, smoothstep(step${i + 1}, step${i +
-          2}, n));`
+        `color = mix(color, c${i + 2}, smoothstep(step${i + 1}, step${
+          i + 2
+        }, n));`
     )
     .join('\n')}
   return color;
@@ -284,12 +287,12 @@ void main( void ) {
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
-  position *= 0.35;
+  position *= 0.85;
 
-  float palleteSteps = 100000.0;
+  float palleteSteps = 1000.0;
   float n = cnoise(vec3(position, time));
   float n1 = random(position + time / 10000.0);
-  n1 /= 25.0;
+  n1 /= 55.0;
   vec4 color = paletteColor(n, palleteSteps);
 
   if (inRange(n, 0.1, 0.15)) {

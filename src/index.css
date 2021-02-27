@@ -1,16 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400;900&display=swap');
+
 @font-face {
-  font-family: 'work';
+  font-family: 'FiraCode';
   font-display: swap;
-  src: url('black.woff2') format('woff2');
-  font-weight: 900;
+  src: url('FiraCode-Bold.woff2') format('woff2');
+  font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'work';
+  font-family: 'FiraCode';
   font-display: swap;
-  src: url('light.woff2') format('woff2');
-  font-weight: 300;
+  src: url('FiraCode-Regular.woff2') format('woff2');
+  font-weight: normal;
   font-style: normal;
 }
 
@@ -21,8 +24,8 @@
 }
 
 ::selection {
-  color: #fff;
-  background: rgba(255, 255, 130, 1);
+  color: rgba(0, 243, 255, 1);
+  background: rgba(246, 20, 119, 1);
 }
 
 a {
@@ -40,7 +43,7 @@ a::before {
   left: -3px;
   right: -3px;
   bottom: 0;
-  background-color: #ffffff;
+  background-color: #00f3ff;
   transition: all 0.2s;
   opacity: 0.2;
   z-index: -1;
@@ -48,7 +51,7 @@ a::before {
 }
 
 a:hover {
-  color: #ff0;
+  color: #ff3e6f;
 }
 
 a:focus::before {
@@ -66,9 +69,8 @@ html {
 }
 
 body {
-  font-family: 'work', Helvetica, Arial, sans-serif;
-  font-weight: 300;
-  color: #fff;
+  font-family: 'FiraCode', monospace;
+  color: #00f3ff;
   background-color: #822ed3;
   height: 100%;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
@@ -102,10 +104,9 @@ body {
 }
 
 .content {
-  font-size: 40px;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 30px;
+  line-height: 45px;
+  text-transform: lowercase;
   position: relative;
   z-index: 1;
   min-height: 100%;
@@ -113,11 +114,15 @@ body {
   max-width: 2000px;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 20px 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   transition: opacity 0.3s;
+}
+
+.content p {
+  margin-top: 15px;
 }
 
 .caption {
@@ -132,34 +137,35 @@ body {
 header {
   position: sticky;
   position: -webkit-sticky;
-  text-transform: uppercase;
-  font-weight: 300;
+  text-transform: lowercase;
   top: 0;
   left: 0;
   padding-bottom: 80px;
 }
 
 h1 {
-  font-weight: 900;
+  font-weight: bold;
   font-size: 13vw;
 
-  text-transform: uppercase;
-  letter-spacing: 4px;
+  text-transform: lowercase;
   line-height: 0.9;
-  margin-bottom: 0.1em;
+  margin-bottom: 0.2em;
 
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: currentColor;
+  color: rgba(246, 20, 119, 1);
+  /* -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: rgba(246, 20, 119, 1); */
 }
 
 h2 {
+  font-weight: bold;
   font-size: 100px;
-  text-transform: uppercase;
+  text-transform: lowercase;
 
-  -webkit-text-fill-color: transparent;
+  color: rgba(246, 20, 119, 1);
+
+  /* -webkit-text-fill-color: transparent;
   -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: currentColor;
+  -webkit-text-stroke-color: currentColor; */
 }
 
 footer {
@@ -181,7 +187,7 @@ footer a .icon {
   position: relative;
   z-index: 2;
 
-  padding: 50px 20px 100px;
+  padding: 50px 30px 100px;
   min-height: 100vh;
 
   transition: opacity 0.3s, left 0s 0.3s;
@@ -200,9 +206,12 @@ footer a .icon {
 .projects h3 {
   font-weight: 300;
   font-size: 30px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  text-transform: lowercase;
   margin-bottom: 5px;
+}
+
+.projects p {
+  opacity: 0.7;
 }
 
 .download {
