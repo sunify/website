@@ -287,20 +287,20 @@ void main( void ) {
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
-  position *= 0.85;
+  position *= 0.75;
 
-  float palleteSteps = 1000.0;
+  float palleteSteps = 10000.0;
   float n = cnoise(vec3(position, time));
   float n1 = random(position + time / 10000.0);
   n1 /= 55.0;
   vec4 color = paletteColor(n, palleteSteps);
 
   if (inRange(n, 0.1, 0.15)) {
-    color = paletteColor2(bounceInOut((n - 0.1) / 0.15), palleteSteps);
+    color = paletteColor2(bounceInOut((n - 0.147) / 0.12), palleteSteps);
   }
-  if (inRange(n, 0.2, 0.05)) {
-    color = paletteColor2(bounceInOut((n - 0.2) / 0.05), palleteSteps);
-  }
+  // if (inRange(n, 0.2, 0.05)) {
+  //   color = paletteColor2(bounceInOut((n - 0.2) / 0.05), palleteSteps);
+  // }
   if (inRange(n, 0.5, 0.1)) {
     color = paletteColor3(bounceInOut((n - 0.5) / 0.1), palleteSteps);
   }
