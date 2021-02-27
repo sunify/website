@@ -68,7 +68,7 @@ html {
 body {
   font-family: 'FiraCode', monospace;
   color: #00f3ff;
-  background-color: #822ed3;
+  background-color: rgba(50, 28, 111, 1.000);
   height: 100%;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
     env(safe-area-inset-bottom) env(safe-area-inset-left);
@@ -150,8 +150,6 @@ h1 {
   margin-bottom: 0.2em;
 
   color: rgba(246, 20, 119, 1);
-  /* -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: rgba(246, 20, 119, 1); */
 }
 
 h2 {

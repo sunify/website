@@ -391,6 +391,7 @@ window.addEventListener('scroll', () => {
     )
   );
   content.style.opacity = 1 - opacity;
+  canvas.style.opacity = 1 - opacity;
 });
 
 const downloadLink = document.createElement('a');
