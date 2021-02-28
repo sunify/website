@@ -271,6 +271,12 @@ float bounceOut(float t) {
 }
 
 float bounceInOut(float t) {
+  // if (t < 0.31) {
+  //   return 0.0;
+  // }
+  // if (t > 0.69) {
+  //   return 1.0;
+  // }
   return t < 0.5
     ? 0.5 * (1.0 - bounceOut(1.0 - t * 2.0))
     : 0.5 * bounceOut(t * 2.0 - 1.0) + 0.5;
@@ -287,7 +293,7 @@ void main( void ) {
   position.x *= resolution.x/resolution.y;
 
   // scale — lower is closer
-  position *= 0.75;
+  position *= 0.5;
 
   float palleteSteps = 10000.0;
   float n = cnoise(vec3(position, time));
@@ -295,14 +301,14 @@ void main( void ) {
   n1 /= 55.0;
   vec4 color = paletteColor(n, palleteSteps);
 
-  if (inRange(n, 0.1, 0.15)) {
-    color = paletteColor2(bounceInOut((n - 0.147) / 0.12), palleteSteps);
+  if (inRange(n, 0.0, 0.2)) {
+    color = paletteColor2(bounceInOut((n - 0.0) / 0.2), palleteSteps);
   }
-  // if (inRange(n, 0.2, 0.05)) {
-  //   color = paletteColor2(bounceInOut((n - 0.2) / 0.05), palleteSteps);
-  // }
-  if (inRange(n, 0.5, 0.1)) {
-    color = paletteColor3(bounceInOut((n - 0.5) / 0.1), palleteSteps);
+  if (inRange(n, 0.3, 0.2)) {
+    color = paletteColor2(bounceInOut((n - 0.3) / 0.2), palleteSteps);
+  }
+  if (inRange(n, 0.6, 0.2)) {
+    color = paletteColor3(bounceInOut((n - 0.5) / 3.2), palleteSteps);
   }
   color += n1;
 

@@ -383,7 +383,7 @@ document.querySelectorAll('.js-goto').forEach(link => {
 });
 
 const content = document.querySelector('.content');
-window.addEventListener('scroll', () => {
+const handleScroll = () => {
   const opacity = eases.cubicIn(
     Math.min(
       1,
@@ -391,8 +391,10 @@ window.addEventListener('scroll', () => {
     )
   );
   content.style.opacity = 1 - opacity;
-  canvas.style.opacity = 1 - opacity;
-});
+  canvas.style.opacity = (1 - opacity) * 0.5;
+};
+window.addEventListener('scroll', handleScroll);
+handleScroll();
 
 const downloadLink = document.createElement('a');
 document.body.appendChild(downloadLink);
