@@ -122,7 +122,7 @@ body {
 }
 
 .content p {
-  max-width: 1000px;
+  max-width: 1100px;
   padding-top: 20px;
 }
 
@@ -136,7 +136,7 @@ body {
 }
 
 .content p .text {
-  padding: 4px 10px;
+  padding: 6px 10px 8px;
   box-decoration-break:clone;
   -webkit-box-decoration-break: clone;
   animation: textFadeIn 0.3s ease-in-out;
@@ -205,11 +205,12 @@ h2 {
 }
 
 footer {
+  display: flex;
   font-size: 24px;
   margin-top: 20px;
   background-color: var(--background);
   color: var(--foreground);
-  padding: 0 10px;
+  padding: 5px 10px 10px;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
 }
@@ -297,12 +298,6 @@ footer a .icon {
   }
 }
 
-@media screen and (min-width: 2400px) {
-  h1 {
-    font-size: 300px;
-  }
-}
-
 @media screen and (max-width: 740px) {
   footer {
     font-size: 14px;
@@ -321,17 +316,12 @@ footer a .icon {
     max-width: none;
   }
 
-  h1 {
-    -webkit-text-stroke-width: 2px;
-  }
-
   h2 {
-    font-size: 35px;
-    -webkit-text-stroke-width: 2px;
+    font-size: 16vw;
   }
 
   header {
-    font-size: 20px;
+    font-size: 25px;
   }
 
   footer a {
