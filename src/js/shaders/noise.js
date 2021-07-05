@@ -5,7 +5,7 @@ const violetPalette = shuffle(['#000', '#000']);
 const violetLerp = lerpColor(violetPalette);
 const goldPalette = ['#360d2a', '#3e0f30', '#471137', '#51133f', '#5c1648', '#691952', '#771c5d', '#88206a', '#9d257a', '#b92c90', '#ff3cc7', '#fa748b', '#f98b73', '#f79c61', '#f6a952', '#f5b546', '#f4bf3b', '#f4c831', '#f3d029', '#f2d721', '#f2de1a', '#f1e414', '#f1e90e', '#f1ee09', '#f0f204', '#f0f600', '#c5f329', '#9ef04f', '#7cee70', '#5fec8d', '#45eaa5', '#30e8ba', '#1fe7ca', '#11e6d7', '#08e6e1', '#02e5e6', '#00e5e8'];
 
-function shuffle(a) {
+export function shuffle(a) {
   var j, x, i;
   for (i = a.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1));

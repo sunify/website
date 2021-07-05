@@ -3,7 +3,7 @@ import tweeen from 'tweeen';
 import eases from 'eases';
 import { PIXEL_RATIO } from './constants';
 
-import noiseShader from './shaders/noise.js';
+import noiseShader, { shuffle } from './shaders/noise.js';
 import screenFrag from './shaders/screenFragment.glsl';
 import vertexShader from './shaders/vertexShader.glsl';
 import surfaceVertexShader from './shaders/surfaceVertex.glsl';
@@ -17,9 +17,22 @@ let buffer;
 let currentProgram;
 let vertexPosition;
 let screenVertexPosition;
+
+const niceSeeds = [
+  -51216,
+  266970,
+  -327558,
+  347327,
+  353216,
+  318628,
+  292671,
+  3173416
+];
+// const seed = (0.5 - Math.random()) * 1000000;
+const seed = shuffle(niceSeeds)[0] + (0.5 - Math.random()) * 50000;
 const parameters = {
   startTime: Date.now(),
-  timeOffset: (0.5 - Math.random()) * 1000000,
+  timeOffset: seed,
   time: 0,
   offsetX: (0.5 - Math.random()) * 10,
   offsetY: (0.5 - Math.random()) * 10,
