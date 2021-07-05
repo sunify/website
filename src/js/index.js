@@ -9,6 +9,7 @@ import vertexShader from './shaders/vertexShader.glsl';
 import surfaceVertexShader from './shaders/surfaceVertex.glsl';
 
 const canvas = document.getElementById('bg');
+const bg = document.querySelector('.bg-wrapper');
 
 // mostly copy-pasted from glslsandbox
 let gl;
@@ -18,7 +19,7 @@ let vertexPosition;
 let screenVertexPosition;
 const parameters = {
   startTime: Date.now(),
-  timeOffset: Math.random() * 10000000,
+  timeOffset: (0.5 - Math.random()) * 1000000,
   time: 0,
   offsetX: (0.5 - Math.random()) * 10,
   offsetY: (0.5 - Math.random()) * 10,
@@ -296,7 +297,7 @@ function render() {
   gl.useProgram(currentProgram);
   gl.uniform1f(
     currentProgram.uniformsCache['time'],
-    (parameters.time + parameters.timeOffset) / 100000
+    (parameters.time + parameters.timeOffset) / 200000
   );
   gl.uniform1f(
     currentProgram.uniformsCache['pixelSteps'],
@@ -349,7 +350,7 @@ function render() {
   // Swap buffers
   [frontTarget, backTarget] = [backTarget, frontTarget];
 }
-const stop = runWithFps(render, 30);
+const stop = runWithFps(render, 12);
 
 let stopScroll;
 function scrollTo(y, { duration = 300, ...options } = {}) {
@@ -382,6 +383,31 @@ document.querySelectorAll('.js-goto').forEach(link => {
   });
 });
 
+let animationDelay = 400;
+function prepareNode(node) {
+  if (node.nodeName === '#text') {
+    const partial = document.createElement('span');
+    partial.innerHTML = node.data.split('').map((char) => {
+      animationDelay += 30;
+      const html = `<span class="c" style="animation-delay: ${animationDelay}ms">${char}</span>`;
+      if ([',', '.', '!'].includes(char)) {
+        animationDelay += 200;
+      }
+      return html;
+    }).join('');
+    node.parentNode.insertBefore(partial, node.nextSibling);
+    node.parentNode.removeChild(node);
+  } else if (node.childNodes) {
+    node.childNodes.forEach(prepareNode);
+  }
+}
+if (window.scrollY < 100) {
+  prepareNode(document.querySelector('.header p'));
+}
+setTimeout(() => {
+  document.querySelector('footer').style.opacity = 1;
+}, animationDelay + 200);
+
 const content = document.querySelector('.content');
 const handleScroll = () => {
   const opacity = eases.cubicIn(
@@ -391,7 +417,7 @@ const handleScroll = () => {
     )
   );
   content.style.opacity = 1 - opacity;
-  canvas.style.opacity = (1 - opacity) * 0.5;
+  bg.style.opacity = (1 - opacity) * 0.5;
 };
 window.addEventListener('scroll', handleScroll);
 handleScroll();

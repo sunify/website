@@ -37,14 +37,12 @@ a::before {
   position: absolute;
   height: 2px;
   content: '';
-  left: -3px;
-  right: -3px;
+  left: 0;
+  right: 0;
   bottom: 0;
-  background-color: #00f3ff;
+  background-color: currentColor;
   transition: all 0.2s;
   opacity: 0.2;
-  z-index: -1;
-  border-radius: 5px;
 }
 
 a:hover {
@@ -57,7 +55,8 @@ a:focus::before {
 }
 
 a:hover::before {
-  height: 100%;
+  /* height: 100%; */
+  background-color: #ff3e6f;
   opacity: 0.3;
 }
 
@@ -67,8 +66,8 @@ html {
 
 body {
   font-family: 'FiraCode', monospace;
-  color: #00f3ff;
-  background-color: rgba(50, 28, 111, 1.000);
+  color: #FFF;
+  background-color: #000;
   height: 100%;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
     env(safe-area-inset-bottom) env(safe-area-inset-left);
@@ -81,6 +80,9 @@ body {
   height: 100%;
   /* overflow: hidden; */
   position: fixed;
+  /* z-index: 1;
+  mix-blend-mode: multiply; */
+  will-change: scroll-position;
 }
 
 .bg {
@@ -111,16 +113,55 @@ body {
   max-width: 2000px;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 20px 30px;
+  padding: 0 20px 20px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
   transition: opacity 0.3s;
 }
 
 .content p {
-  margin-top: 15px;
-  max-width: 1300px;
+  max-width: 1000px;
+  padding-top: 20px;
+}
+
+@keyframes textFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.content p .text {
+  padding: 4px 10px;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break: clone;
+  animation: textFadeIn 0.3s ease-in-out;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+@keyframes charFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-300px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.content p .text .c {
+  opacity: 0;
+  animation: charFadeIn 0.2s ease-in-out;
+  animation-fill-mode: both;
 }
 
 .caption {
@@ -138,26 +179,25 @@ header {
   text-transform: lowercase;
   top: 0;
   left: 0;
-  padding-bottom: 80px;
+  padding-bottom: 180px;
 }
 
 h1 {
-  font-weight: bold;
-  font-size: 13vw;
+  font-size: 20vw;
 
   text-transform: lowercase;
   line-height: 0.9;
   margin-bottom: 0.2em;
 
-  color: rgba(246, 20, 119, 1);
+  color: #FFF;
+  overflow: hidden;
+  position: relative;
 }
 
 h2 {
   font-weight: bold;
   font-size: 100px;
   text-transform: lowercase;
-
-  color: rgba(246, 20, 119, 1);
 
   /* -webkit-text-fill-color: transparent;
   -webkit-text-stroke-width: 2px;
@@ -167,7 +207,11 @@ h2 {
 footer {
   font-size: 24px;
   margin-top: 20px;
-  width: 100%;
+  background-color: var(--background);
+  color: var(--foreground);
+  padding: 0 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
 footer a + a {
