@@ -28,8 +28,8 @@ const niceSeeds = [
   292671,
   3173416
 ];
-// const seed = (0.5 - Math.random()) * 1000000;
-const seed = shuffle(niceSeeds)[0] + (0.5 - Math.random()) * 50000;
+let seed = shuffle(niceSeeds)[0] + (0.5 - Math.random()) * 10000;
+// seed = (0.5 - Math.random()) * 1000000;
 const parameters = {
   startTime: Date.now(),
   timeOffset: seed,
@@ -287,7 +287,7 @@ function onWindowResize() {
   canvas.width = bgRect.width * scale;
   canvas.height = bgRect.height * scale;
 
-  if (Math.abs(canvas.width - parameters.screenWidth) > 100) {
+  if (Math.abs(canvas.height - parameters.screenHeight) > 100) {
     // ориентация или большой ресайз
     // canvas.width = 6144;
     // canvas.height = 3240;
@@ -363,7 +363,7 @@ function render() {
   // Swap buffers
   [frontTarget, backTarget] = [backTarget, frontTarget];
 }
-const stop = runWithFps(render, 12);
+const stop = runWithFps(render, 30);
 
 let stopScroll;
 function scrollTo(y, { duration = 300, ...options } = {}) {
@@ -414,8 +414,10 @@ function prepareNode(node) {
     node.childNodes.forEach(prepareNode);
   }
 }
-if (window.scrollY < 100) {
+const wasAnimatedBefore = Boolean(Number(localStorage.getItem('wasAnimatedBefore') || 0));
+if (window.scrollY < 100 && !wasAnimatedBefore) {
   prepareNode(document.querySelector('.header p'));
+  localStorage.setItem('wasAnimatedBefore', '1');
 }
 setTimeout(() => {
   document.querySelector('footer').style.opacity = 1;

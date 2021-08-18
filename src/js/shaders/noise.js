@@ -24,8 +24,13 @@ const sortedPalette = goldPalette.slice(1, -1).sort((a, b) => sumColor(a) - sumC
 const darkest = sortedPalette[0];
 const bgColor = goldPalette[goldPalette.length - 1];
 const frColor = isTooBright(bgColor) ? darkest : '#FFF';
+const hoverColor = (() => {
+  const p = sortedPalette.filter((c) => c !== frColor);
+  return p[Math.round(p.length / 5) * (isTooBright(bgColor) ? 1 : 4)];
+})();
 document.documentElement.style.setProperty('--background', bgColor);
 document.documentElement.style.setProperty('--foreground', frColor);
+document.documentElement.style.setProperty('--hover', hoverColor);
 document.body.style.backgroundColor = goldPalette[0];
 document.body.style.color = isTooBright(goldPalette[0]) ? darkest : '#FFF';
 

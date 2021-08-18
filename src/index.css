@@ -46,7 +46,7 @@ a::before {
 }
 
 a:hover {
-  color: #ff3e6f;
+  color: var(--hover);
 }
 
 a:focus::before {
@@ -56,7 +56,7 @@ a:focus::before {
 
 a:hover::before {
   /* height: 100%; */
-  background-color: #ff3e6f;
+  background-color: var(--hover);
   opacity: 0.3;
 }
 
@@ -65,7 +65,7 @@ html {
 }
 
 body {
-  font-family: 'FiraCode', monospace;
+  font-family: 'Crimson Text', serif;
   color: #FFF;
   background-color: #000;
   height: 100%;
@@ -104,7 +104,7 @@ body {
 
 .content {
   font-size: 30px;
-  line-height: 45px;
+  /* line-height: 45px; */
   text-transform: lowercase;
   position: relative;
   z-index: 1;
@@ -184,7 +184,6 @@ header {
 
 h1 {
   font-size: 20vw;
-
   text-transform: lowercase;
   line-height: 0.9;
   margin-bottom: 0.2em;
@@ -321,7 +320,12 @@ footer a .icon {
   }
 
   header {
-    font-size: 25px;
+    font-size: 24px;
+  }
+
+  header p {
+    background-color: var(--background);
+    padding-top: 0 !important;
   }
 
   footer a {
