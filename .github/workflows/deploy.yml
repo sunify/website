@@ -16,6 +16,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: master
-          token: ${{ secrets.GH_TOKEN }}
+          token: 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
           repository-name: sunify/sunify.github.io
           folder: dist
