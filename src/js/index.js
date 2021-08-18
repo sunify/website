@@ -3,12 +3,13 @@ import tweeen from 'tweeen';
 import eases from 'eases';
 import { PIXEL_RATIO } from './constants';
 
-import noiseShader from './shaders/noise.js';
+import noiseShader, { shuffle } from './shaders/noise.js';
 import screenFrag from './shaders/screenFragment.glsl';
 import vertexShader from './shaders/vertexShader.glsl';
 import surfaceVertexShader from './shaders/surfaceVertex.glsl';
 
 const canvas = document.getElementById('bg');
+const bg = document.querySelector('.bg-wrapper');
 
 // mostly copy-pasted from glslsandbox
 let gl;
@@ -16,9 +17,22 @@ let buffer;
 let currentProgram;
 let vertexPosition;
 let screenVertexPosition;
+
+const niceSeeds = [
+  -51216,
+  266970,
+  -327558,
+  347327,
+  353216,
+  318628,
+  292671,
+  3173416
+];
+let seed = shuffle(niceSeeds)[0] + (0.5 - Math.random()) * 10000;
+// seed = (0.5 - Math.random()) * 1000000;
 const parameters = {
   startTime: Date.now(),
-  timeOffset: Math.random() * 10000000,
+  timeOffset: seed,
   time: 0,
   offsetX: (0.5 - Math.random()) * 10,
   offsetY: (0.5 - Math.random()) * 10,
@@ -273,7 +287,7 @@ function onWindowResize() {
   canvas.width = bgRect.width * scale;
   canvas.height = bgRect.height * scale;
 
-  if (Math.abs(canvas.width - parameters.screenWidth) > 100) {
+  if (Math.abs(canvas.height - parameters.screenHeight) > 100) {
     // ориентация или большой ресайз
     // canvas.width = 6144;
     // canvas.height = 3240;
@@ -296,7 +310,7 @@ function render() {
   gl.useProgram(currentProgram);
   gl.uniform1f(
     currentProgram.uniformsCache['time'],
-    (parameters.time + parameters.timeOffset) / 100000
+    (parameters.time + parameters.timeOffset) / 200000
   );
   gl.uniform1f(
     currentProgram.uniformsCache['pixelSteps'],
@@ -382,6 +396,33 @@ document.querySelectorAll('.js-goto').forEach(link => {
   });
 });
 
+let animationDelay = 400;
+function prepareNode(node) {
+  if (node.nodeName === '#text') {
+    const partial = document.createElement('span');
+    partial.innerHTML = node.data.split('').map((char) => {
+      animationDelay += 30;
+      const html = `<span class="c" style="animation-delay: ${animationDelay}ms">${char}</span>`;
+      if ([',', '.', '!'].includes(char)) {
+        animationDelay += 200;
+      }
+      return html;
+    }).join('');
+    node.parentNode.insertBefore(partial, node.nextSibling);
+    node.parentNode.removeChild(node);
+  } else if (node.childNodes) {
+    node.childNodes.forEach(prepareNode);
+  }
+}
+const wasAnimatedBefore = Boolean(Number(localStorage.getItem('wasAnimatedBefore') || 0));
+if (window.scrollY < 100 && !wasAnimatedBefore) {
+  prepareNode(document.querySelector('.header p'));
+  localStorage.setItem('wasAnimatedBefore', '1');
+}
+setTimeout(() => {
+  document.querySelector('footer').style.opacity = 1;
+}, animationDelay + 200);
+
 const content = document.querySelector('.content');
 const handleScroll = () => {
   const opacity = eases.cubicIn(
@@ -391,7 +432,7 @@ const handleScroll = () => {
     )
   );
   content.style.opacity = 1 - opacity;
-  canvas.style.opacity = (1 - opacity) * 0.5;
+  bg.style.opacity = (1 - opacity) * 0.5;
 };
 window.addEventListener('scroll', handleScroll);
 handleScroll();
