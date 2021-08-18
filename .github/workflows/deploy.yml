@@ -19,7 +19,6 @@ jobs:
         npm install
         npm run build
     - name: Deploy to GitHub Pages
-        run: |
-          ./scripts/gh-deploy.sh
+        run: ./scripts/gh-deploy.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
