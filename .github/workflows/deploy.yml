@@ -19,11 +19,7 @@ jobs:
         npm install
         npm run build
     - name: Deploy to GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v2
-        with:
-          target_branch: master
-          build_dir: dist
-          repo: sunify.github.io
+        run: |
+          ./scripts/gh-deploy.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-          GH_PAT: ${{ secrets.GH_ACCESS_TOKEN }}
