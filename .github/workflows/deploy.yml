@@ -1,21 +1,28 @@
-name: Build and Deploy
+name: Build and Release
 on: [push]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
-
-      - name: Install and Build 🔧
-        run: |
-          npm install
-          npm run build
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.4
-        with:
-          branch: master
-          token: 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
-          repository-name: sunify/sunify.github.io
-          folder: dist
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install, build
+      run: |
+        npm install
+        npm run build
+    - name: Release Github Pages
+      uses: igolopolosov/github-action-release-github-pages@master
+      env:
+        GITHUB_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+        GITHUB_PAGES_REPO_AUTHOR: sunify
+        GITHUB_PAGES_REPO_NAME: sunify.github.io
+        GITHUB_PAGES_RELEASE_BRANCH: master
+        PROJECT_BUILD_FOLDER: dist
