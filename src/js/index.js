@@ -1,6 +1,7 @@
 import runWithFps from 'run-with-fps';
 import tweeen from 'tweeen';
-import eases from 'eases';
+import cubicIn from 'eases/cubic-in';
+import cubicOut from 'eases/cubic-out';
 import { PIXEL_RATIO } from './constants';
 
 import noiseShader, { shuffle } from './shaders/noise.js';
@@ -378,7 +379,7 @@ function scrollTo(y, { duration = 300, ...options } = {}) {
       window.scrollTo(0, y);
     },
     {
-      easing: eases.cubicOut,
+      easing: cubicOut,
       duration,
       ...options
     }
@@ -425,7 +426,7 @@ setTimeout(() => {
 
 const content = document.querySelector('.content');
 const handleScroll = () => {
-  const opacity = eases.cubicIn(
+  const opacity = cubicIn(
     Math.min(
       1,
       (window.scrollY - window.innerHeight / 2.5) / (window.innerHeight / 2.5)
